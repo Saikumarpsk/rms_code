@@ -1,0 +1,66 @@
+
+@font-face {
+    font-family: 'robotoregular';
+    src: url('../fonts/roboto-regular-webfont.woff2') format('woff2'),
+         url('../fonts/roboto-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+/*************************************************************************************/
+
+@font-face {
+    font-family: 'robotolight';
+    src: url('../fonts/roboto-light-webfont.woff2') format('woff2'),
+         url('../fonts/roboto-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'robotomedium';
+    src: url('../fonts/roboto-medium-webfont.woff2') format('woff2'),
+         url('../fonts/roboto-medium-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'robotoregular';
+    src: url('../fonts/roboto-regular-webfont.woff2') format('woff2'),
+         url('../fonts/roboto-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/********************************************************************************/
+
+
+
+#body{ background:url(../images/bg.jpg) no-repeat center center fixed; background-size:cover; font-family: 'robotoregular';}
+/*#Login{ background:#FFf; width:35%; min-width:320px; margin:15% 25% 0 33%; padding:20px; border-radius:4px;}*/
+#Login{ background:#0d769d; padding:40px; min-width:300px; max-width:380px; position: absolute;  top: 50%;  left:50%;  transform: translate(-50%,-50%);  border-radius:0px;  /*box-shadow: 0px 0px 20px #999; border:solid 1px #39a9db;*/ text-align:center; border-radius:4px;  }
+.Login_Logo { width:120px; height:120px; background:white; border-radius:50%; padding:30px 0 0 0; border:solid 5px #0d769d; margin:-105px auto 20px !important}
+.Login_Logo > img{ text-align:center; width:80px; display:inline-block; }
+#Login > h1{ color:#FFF; text-align:left; font-size:25px; line-height:30px; margin:0px 0px 50px 0px; }
+#Login > h1 > span { border-bottom:solid 2px #FFF; padding:5px;}
+#Login > form > input[type="text"], #Login > form > input[type="password"]  {    width: 100%;    padding: 18px 20px;  border-radius:4px; border:1px #cacaca solid;   margin: 10px 0;    box-sizing: border-box; color:#39a9db; }
+#Login > form > input[type="button"], #Login > form > input[type="submit"]{ width: 100%;    padding: 12px 20px;  border-radius:4px; border:1px #cacaca solid;   margin: 10px 0;    box-sizing: border-box; background:#39a9db; color:#FFF;  font-size:16px;  }
+.remeberme{ margin:5px; color:#39a9db; } 
+#Login > form > input:focus { border:solid 1px #39a9db;}
+/*****************************************************************/
+.form-group{ margin: 0px 0px 20px 0px;}
+.form-control {  height: 53px;    margin-bottom: 30px;  border:transparent;}
+.input-group-addon {min-width:50px;	background-color:#00b6d9; border:transparent; color:#FFF;}
+.loginbtn {background:#00b6d9; transition: background-color 2s ease-out; padding:5px; display:block; line-height: 43px; font-size:22px; color:#FFF; }
+.loginbtn:hover{ background-color: #01a0be; color:#FFF}
+.checkbox{ color:#333; text-align:left; }
+.checkbox span{ margin-left:20px}
+.forgot, .forgot:hover{ color:#FFF;}
+
+@media (min-width:320px) and (max-width:640px) { 
+#Login {background: #0d769d; margin-top: 44px; padding: 10px; min-width: 250px !important;max-width: 330px !important;position: absolute; top: 50% !important;left: 50%;transform: translate(-50%,-50%); box-shadow: 0px 0px 20px #999;border: solid 1px #39a9db;text-align: center;border-radius: 4px;}
+#Login > h1 {    color: #FFF;    text-align: left;    font-size: 19px !important;    line-height: 20px !important;    margin: 0px 0px 20px 0px !important;}
+
+.checkbox span{ margin-bottom: 10px; display: block;}
+
+}
