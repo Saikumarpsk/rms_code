@@ -1,3 +1,7 @@
+<?php
+
+    include './db_check.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,7 +48,7 @@
 <div class="container-fluid content-wrapper">
   <div class="dashboard-items">
     <ul>
-      <li class="Dashbord"><a href="Components/blankPageLayOut.php"> <img src="images/digital-asset-icon.png" alt="" />
+      <li class="Dashbord"><a href="blankPageLayOut.php"> <img src="images/digital-asset-icon.png" alt="" />
         <div> Digital Asset Monitoring Call Center </div>
         </a></li>
       <li class="Ess"><a href="#"> <img src="images/digitalfieldanalytics-icon.png"  alt="" />

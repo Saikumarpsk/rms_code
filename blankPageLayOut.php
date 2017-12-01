@@ -2,37 +2,23 @@
 
 <?php
 	
-	session_start();
+    
+    include './db_check.php';
+    
+    include './db_connect.php';
+    
+    $user_id=$_SESSION["user_id"];    
+		
+    $sql = "select * from user_mapping where user_id = '$user_id' "; 
+    $result = mysql_query($sql, $link);
 
-	  $user_id=$_SESSION["user_id"];    
-		 
-	
-		if (!$link = mysql_connect('localhost', 'root', 'root123')) 
-		{
-			echo 'Could not connect to mysql';
-			exit;
-	    }
-	   
-        if (!mysql_select_db('demo_saran', $link)) {
-			echo 'Could not select database';
-			exit;
-		}
-		
-        $sql = "select * from user_mapping where user_id = '$user_id' "; 
-		$result = mysql_query($sql, $link);
+    while($row4 = mysql_fetch_array($result))
+    {
+            $customer_id = $row4["customer_id"];
+    }
 
-		while($row4 = mysql_fetch_array($result))
-		{
-			$customer_id = $row4["customer_id"];
-		}
-		
-		$cus_sql = "select * from customer where customer_id = '$customer_id' "; 
-		$cus_result = mysql_query($cus_sql , $link);
-
-		
-		
-	
-	    
+    $cus_sql = "select * from customer where customer_id = '$customer_id' "; 
+    $cus_result = mysql_query($cus_sql , $link);
 	
 ?>
 <html>
@@ -43,18 +29,18 @@
 <title>RMSS</title>
 <!-- Base Styles -->
 <!-- AnimationCSS -->
-<link rel="stylesheet" href="../css/animate.min.css">
-<link href="../css/animate.css" rel="stylesheet" >
+<link rel="stylesheet" href="css/animate.min.css">
+<link href="css/animate.css" rel="stylesheet" >
 
 <!-- Bootstrap -->
-<link href="../css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap.css" rel="stylesheet">
 <!-- Theme Styles -->
-<link rel="stylesheet" type="text/css" href="../css/dashboard.css">
-<link rel="stylesheet" href="../css/gs.min.css">
-<link rel="stylesheet" href="../css/gs-skins.min.css">
-<link rel="stylesheet" href="../css/datepicker3.css">
+<link rel="stylesheet" type="text/css" href="css/dashboard.css">
+<link rel="stylesheet" href="css/gs.min.css">
+<link rel="stylesheet" href="css/gs-skins.min.css">
+<link rel="stylesheet" href="css/datepicker3.css">
 <!-- Fontawesome -->
-<link href="../css/font-awesome.min.css" rel="stylesheet">
+<link href="css/font-awesome.min.css" rel="stylesheet">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -83,14 +69,14 @@
   <aside class="main-sidebar" >
     <section class="sidebar">
       <div class="user-panel">
-        <div><a href="../Dashboard.html"><img style="margin: 0 auto; text-align: center;" src="../images/home-icon.png" class="img-responsive" width="25px" alt=""> </a> </div>
+        <div><a href="../Dashboard.html"><img style="margin: 0 auto; text-align: center;" src="images/home-icon.png" class="img-responsive" width="25px" alt=""> </a> </div>
       </div>
       <div>
         <ul class="sidebar-menu" >
-          <li><a href="#"  class="btn btn-primary" data-toggle="modal" data-target="#product_view"><img src="../images/li-icon1.png"></a></li>
-          <li><a href="#"  class="btn btn-primary" data-toggle="modal" data-target="#product_view2"><img src="../images/li-icon2.png"></a></li>
-          <li><a href="#"  class="btn btn-primary" data-toggle="modal" data-target="#product_view3"><img src="../images/li-icon3.png"></a></li>
-          <li><a href="#"  class="btn btn-primary" data-toggle="modal" data-target="#product_view4"><img src="../images/li-icon4.png"></a></li>
+          <li><a href="#"  class="btn btn-primary" data-toggle="modal" data-target="#product_view"><img src="images/li-icon1.png"></a></li>
+          <li><a href="#"  class="btn btn-primary" data-toggle="modal" data-target="#product_view2"><img src="images/li-icon2.png"></a></li>
+          <li><a href="#"  class="btn btn-primary" data-toggle="modal" data-target="#product_view3"><img src="images/li-icon3.png"></a></li>
+          <li><a href="#"  class="btn btn-primary" data-toggle="modal" data-target="#product_view4"><img src="images/li-icon4.png"></a></li>
         </ul>
       </div>
       <div class="clearfix"></div>
@@ -145,10 +131,10 @@
         <div class="allaram-set">
           <h4 class="text-center">Alarm total = 90</h4>
           <div class="row">
-            <div class="col-lg-6"><p><img src="../images/moto-temp.png">&nbsp; Motor temp = 15 </p></div>
-            <div class="col-lg-6"><p><img src="../images/deishcharge-press.png">&nbsp; Discharge Pres= 15</p></div>
-            <div class="col-lg-6"><p><img src="../images/intake-press.png">&nbsp; Intake Pres = 30</p></div>
-            <div class="col-lg-6"><p><img src="../images/other-circle.png">&nbsp; Other = 30</p></div>
+            <div class="col-lg-6"><p><img src="images/moto-temp.png">&nbsp; Motor temp = 15 </p></div>
+            <div class="col-lg-6"><p><img src="images/deishcharge-press.png">&nbsp; Discharge Pres= 15</p></div>
+            <div class="col-lg-6"><p><img src="images/intake-press.png">&nbsp; Intake Pres = 30</p></div>
+            <div class="col-lg-6"><p><img src="images/other-circle.png">&nbsp; Other = 30</p></div>
           </div>
         </div>
         <hr>
@@ -189,14 +175,14 @@
           <h4 class="text-center">Status</h4>
           <div class="row">
             <div class="col-lg-6">
-              <p><img src="../images/faild-icon.png">&nbsp; Failed = </p>
-              <p><img src="../images/stopped-icon.png">&nbsp; Stopped = </p>
-              <p><img src="../images/running-icon.png">&nbsp; Running = </p>
+              <p><img src="images/faild-icon.png">&nbsp; Failed = </p>
+              <p><img src="images/stopped-icon.png">&nbsp; Stopped = </p>
+              <p><img src="images/running-icon.png">&nbsp; Running = </p>
             </div>
             <div class="col-lg-6">
-              <p> <img src="../images/woopt-iocn.png">&nbsp; WO Opt = </p>
-              <p> <img src="../images/woinstalation-icon.png">&nbsp; WO Installation = </p>
-              <p> <img src="../images/wopull-icon.png">&nbsp; WO Pull = </p>
+              <p> <img src="images/woopt-iocn.png">&nbsp; WO Opt = </p>
+              <p> <img src="images/woinstalation-icon.png">&nbsp; WO Installation = </p>
+              <p> <img src="images/wopull-icon.png">&nbsp; WO Pull = </p>
             </div>
           </div>
         </div>
@@ -310,9 +296,9 @@
   <!-- ==========footer start here ===================================== --> 
   
 </div>
-<script src="../js/jquery-2.2.3.min.js"></script> 
-<script src="../js/bootstrap.min.js"></script> 
-<script src="../js/app.min.js"></script> 
+<script src="js/jquery-2.2.3.min.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/app.min.js"></script> 
 <script>
 
 	$(".nav_trigger_rmss").click(function() {
@@ -366,10 +352,7 @@ $("#submit_company").click(function(){
 </script>
 <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCYVYQPAkMd4xAzjUq5UnBIfatKdYE0CCg&extension=.js'></script> 
 <script>
-    var asset_loc_lat = [];
-    var asset_loc_long = [];
-    var asset_id = [];
-    var country_id = [];
+    
 $("#submit_field").click(function(){
 	
 	var myArray = [];
@@ -385,7 +368,9 @@ $("#submit_field").click(function(){
 	var final_cust_id=valid_cust_id[0];
 	
 	$.post("ajax.php",  {'cust_id' : final_cust_id , condition_type: '3' , 'fields': values}  , function(response){
-		
+		var asset_loc_lat = [];
+                var asset_loc_long = [];
+                var asset_id = [];
 		//alert(response);
 		$("#asset_res").html(response);
 		$.each($('form').serializeArray(), function(index, value){
@@ -393,13 +378,11 @@ $("#submit_field").click(function(){
                     asset_loc_lat.push($('[name="' + value.name + '"]').attr('lat'));
                     asset_loc_long.push($('[name="' + value.name + '"]').attr('long'));
                     asset_id.push($('[name="' + value.name + '"]').val());
-                    country_id.push($('[name="' + value.name + '"]').attr('country_name'));
                 });
                 console.log(asset_loc_lat);
                 console.log(asset_loc_long);
                 console.log(asset_id);
-                var mapDiv = document.getElementById('map-canvas');
-                google.maps.event.addDomListener(mapDiv, 'click', init);
+                google.maps.event.addDomListener(window, 'click', init);
                 
                 
                 function init() {
@@ -670,7 +653,7 @@ $("#submit_field").click(function(){
                 var innerArry = [];
                 var locations = [];
                 for(ass_id = 0;ass_id < asset_id.length;ass_id++){
-                    locations.push([country_id[ass_id], '<address>Via Ottavio Assarotti, 10 - Torino <br /> 10122 Italy</address>', 'Phone: +39 011 549444', 'undefined',
+                    locations.push(['Headquarter', '<address>Via Ottavio Assarotti, 10 - Torino <br /> 10122 Italy</address>', 'Phone: +39 011 549444', 'undefined',
  'undefined', asset_loc_lat[ass_id], asset_loc_long[ass_id], 'https://mapbuildr.com/assets/img/markers/solid-pin-blue.png']);
                    
                 }
@@ -733,3 +716,4 @@ link = '';            bindInfoWindow(marker, map, locations[i][0], description, 
 
 </body>
 </html>
+
