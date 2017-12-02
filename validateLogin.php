@@ -1,14 +1,8 @@
 <?php
 
-	//session_start();
-
-	
-	include './db_check.php';
+	session_start();
     
     	include './db_connect.php';
-
-
-	//Retrieving Form Fields
 
 	$loginId = $_REQUEST["email"];
 
