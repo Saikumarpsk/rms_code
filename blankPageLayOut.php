@@ -373,14 +373,23 @@ $("#checkbox1").click(function(){
 	
 	$("#product_view2").hide();
 	
-	$.post("ajax.php",  {'cust_id' : cust_id , condition_type: '1' }  , function(response){
-		
-		$("#company_res").html(response);
-		
-	})
+	
+	$.ajax({
+                    type: "POST",
+                    url: 'ajax.php',
+                    data: {
+			'cust_id':cust_id,
+			condition_type: '1' 
+			},
+                    success: function (response) {
+			$("#company_res").html(response);
+			}
+		});
 	
 	
 });
+
+
 </script>
 <script>
 $("#submit_company").click(function(){
