@@ -1,18 +1,9 @@
 <?php
 
     
-    session_start();
-
-	if (!$link = mysql_connect('localhost', 'root', 'K@#L&*!)%')) 
-	    {
-		echo 'Could not connect to mysql';
-		exit;
-	    }
-
-	    if (!mysql_select_db('demo_rmss', $link)) {
-		echo 'Could not select database';
-		exit;
-	    }
+    include './db_check.php';
+    
+    include './db_connect.php';
    
     $user_id=$_SESSION["user_id"];    
 		
@@ -253,8 +244,8 @@
                   <label for="checkbox1">First Option default 3</label-->
                 </div>
               
-			   <a href="#" data-toggle="modal" data-dismiss="modal"> </a>
-<input type="button" id="submit_field"  value="submit">
+			   <a href="#" data-toggle="modal" data-dismiss="modal"> 
+<input type="button" id="submit_field"  value="submit"></a>
 				
               </div>
             </div>
@@ -377,6 +368,7 @@
 $("#checkbox1").click(function(){
 	
 	var cust_id =$("#checkbox1").val();
+	var type = 1;
 	document.cookie = cust_id;
 	//style="display: none;
 	
@@ -387,10 +379,10 @@ $("#checkbox1").click(function(){
                     type: "POST",
                     url: 'ajax.php',
                     data: {
-			'cust_id':cust_id,
-			condition_type: '1' 
+			cust_id:cust_id,
+			condition_type: type, 
 			},
-		async: false,
+			
                     success: function (response) {
 			$("#company_res").html(response);
 			},
@@ -476,7 +468,7 @@ $("#submit_field").click(function(){
 
 function callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name){
 var conLoaded = document.getElementById('submit_field');
-google.maps.event.addDomListener(conLoaded, 'mouseover', init);
+google.maps.event.addDomListener(conLoaded, 'mouseout', init);
 
 function init(){
 		var mapOptions = {

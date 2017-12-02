@@ -1,17 +1,8 @@
 <?php 
 
-    session_start();
+    include './db_connect.php';
 
-	if (!$link = mysql_connect('localhost', 'root', 'K@#L&*!)%')) 
-	    {
-		echo 'Could not connect to mysql';
-		exit;
-	    }
-
-	    if (!mysql_select_db('demo_rmss', $link)) {
-		echo 'Could not select database';
-		exit;
-	    }
+	include './db_check.php';
 
     if(isset($_POST)  && $_POST['condition_type'] == 1 )
     {
