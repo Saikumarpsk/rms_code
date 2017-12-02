@@ -381,10 +381,15 @@ $("#checkbox1").click(function(){
 			'cust_id':cust_id,
 			condition_type: '1' 
 			},
+		async: false,
                     success: function (response) {
 			$("#company_res").html(response);
-			}
-		});
+			},
+			 error: function(jqXHR, status, err){
+				alert(jqXHR.responseText);
+			    }
+
+});
 	
 	
 });
@@ -462,7 +467,7 @@ $("#submit_field").click(function(){
 
 function callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name){
 var conLoaded = document.getElementById('submit_field');
-google.maps.event.addDomListener(conLoaded, 'click', init);
+google.maps.event.addDomListener(conLoaded, 'mouseover', init);
 
 function init(){
 		var mapOptions = {
