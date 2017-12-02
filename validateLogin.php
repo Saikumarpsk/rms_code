@@ -3,11 +3,9 @@
 	session_start();
 
 	
-	//Include Files
-
-	include("class/db_functions.php");
-
-	include("class/dbConnection.php");
+	include './db_check.php';
+    
+    	include './db_connect.php';
 
 
 	//Retrieving Form Fields
@@ -16,78 +14,23 @@
 
 	$password =$_REQUEST["password"];
 
+	$sql =  "select * from users_table where user_email_id  = '$loginId' and user_password = '$password' "; 
+
+        $result = mysql_query($sql, $link);
+
+        while($val1 = mysql_fetch_array($result))
+        {
+		$userId = $val1['user_id']; 
+		$user_role = $val1['user_role'];
+        }
 	
-
-	//Creating 'dbConnection' Object
-
-	$dbObj = new dbConnection();
-
-	$con = $dbObj->getConnection();
-
-	//echo $con . "<br/>";
-
+	if(!empty($userId)){
+		$_SESSION["user_id"] = $userId; 
+		$_SESSION["user_role"] = $user_role; 
+		header('Location:home.php'); 
+	}else{
+		$message = 'Wrong%20Username/Password';
+		header('Location:index.php?message='.$message);
+	}
 	
-
-	if($con)
-
-	{
-
-		//echo "MySQL Server Connected<br/>";
-
-		$dbResult = $dbObj->selectDatabase();
-
-		if($dbResult)
-
-		{
-
-			//echo "Database Selected<br/>";
-
-			//Creating 'admin' Object	
-
-			$adminObj = new DB_Functions();
-
-			$message = $adminObj->validateLogin($loginId,$password,$con);
-
-			if($message == "Correct")
-
-			{
-
-				$userId = $adminObj->getAdminId($loginId,$con);
-
-				//Creating Session Variable
-
-				 $_SESSION["user_id"] = $userId; 
-
-				header('Location:home.php');
-
-			}
-
-			else
-
-			{
-
-				header('Location:index.php?message='.$message);
-
-			}
-
-		}
-
-		else
-
-		{
-
-			echo mysql_errno() . " : " . mysql_error();
-
-		}
-
-	}
-
-	else
-
-	{
-
-		echo mysql_errno() . " : " . mysql_error();
-
-	}
-
 ?>

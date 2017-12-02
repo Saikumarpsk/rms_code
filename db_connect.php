@@ -5,7 +5,7 @@
         exit;
     }
 	   
-    if (!mysql_select_db('demo_saran', $link)) {
+    if (!mysql_select_db('demo_suneel', $link)) {
         echo 'Could not select database';
         exit;
     }

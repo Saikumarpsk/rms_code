@@ -1,6 +1,7 @@
 <?php
 
     include './db_check.php';
+	
 ?>
 <!DOCTYPE html>
 <html lang="en">
