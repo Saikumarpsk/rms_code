@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <?php
 	
     
@@ -21,163 +19,157 @@
     $cus_result = mysql_query($cus_sql , $link);
 	
 ?>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RMSS</title>
-<!-- Base Styles -->
-<!-- AnimationCSS -->
-<link rel="stylesheet" href="css/animate.min.css">
-<link href="css/animate.css" rel="stylesheet" >
-
-<!-- Bootstrap -->
-<link href="css/bootstrap.css" rel="stylesheet">
-<!-- Theme Styles -->
-<link rel="stylesheet" type="text/css" href="css/dashboard.css">
-<link rel="stylesheet" href="css/gs.min.css">
-<link rel="stylesheet" href="css/gs-skins.min.css">
-<link rel="stylesheet" href="css/datepicker3.css">
-<!-- Fontawesome -->
-<link href="css/font-awesome.min.css" rel="stylesheet">
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-<style type="text/css">
-            /* Set a size for our map container, the Google Map will take up 100% of this container */
-            #map {
-                width: 750px;
-                height: 500px;
-            }
-        </style>
-        
+<title>RMSS | Dashboard</title>
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+<link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
+<link rel="stylesheet" href="dist/css/Rmss.min.css">
+<link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+<link rel="stylesheet" href="dist/css/style.css">
+<link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-  <header class="main-header"> 
-    <!--<a href="#" class="logo" > <span class="logo-mini"><b>KHive</b></span> <span class="logo-lg"><b>KloudHive</b></span> </a>-->
+  <header class="main-header"> <a href="home.php" class="logo"> <span class="logo-mini"><b>R</b>MSS</span> <span class="logo-lg"><b>RMSS </b> </span> </a>
     <nav class="navbar navbar-static-top">
-      <div class="row">
-        <div class="col-md-2 col-xs-5"> <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a> </div>
-        <div class="col-md-8 col-xs-5">
-          <h1 class="logo-txt hidden-xs "> Remote Monitoring & Surveillance System </h1>
-        </div>
-        <div class="col-md-2 col-xs-2">
-          <div class="pull-right"> <span class="nav_trigger_rmss"><i class="fa fa-navicon"></i></span> </div>
-        </div>
+		<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"> <span class="sr-only">Toggle navigation</span> </a>
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+         <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-align-justify"></i>             
+            </a>
+            <ul class="dropdown-menu">              
+              <li>
+               
+                <ul class="menu">
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-gears text-aqua"></i>Setting one
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-warning text-yellow"></i> Setting Two
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-users text-red"></i> Setting There
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-shopping-cart text-green"></i> Setting Four
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-user text-red"></i> Setting Five
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="footer"><a href="#">View all</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#" data-toggle="control-sidebar"><i class="fa fa-bell-o"></i> <span class="label label-warning">10</span></a>
+          </li>
+        </ul>
       </div>
     </nav>
   </header>
-  <!-- ============sidebar start here=================================== -->
-  <aside class="main-sidebar" >
+  <aside class="main-sidebar">
     <section class="sidebar">
       <div class="user-panel">
-        <div><a href="../Dashboard.html"><img style="margin: 0 auto; text-align: center;" src="images/home-icon.png" class="img-responsive" width="25px" alt=""> </a> </div>
+        <div class="pull-left image">
+          <div class="main-nav">
+            <ul class="">
+              <li><a href="#" data-toggle="modal" data-container="body" title="Assets" data-target="#product_view"><img src="dist/img/li-icon1.png" class="img-circle" alt="User Image"></a> </li>
+              <li><a href="#" data-toggle="modal" data-container="body" title="Locations" data-target="#product_view2"><img src="dist/img/li-icon2.png" class="img-circle" alt="User Image"></a> </li>
+              <li><a href="#" data-toggle="modal" data-container="body" title="Filelds" data-target="#product_view3"><img src="dist/img/li-icon3.png" class="img-circle" alt="User Image"></a> </li>
+              <li><a href="#" data-toggle="modal" data-container="body" title="Borewells" data-target="#product_view4"><img src="dist/img/li-icon4.png" class="img-circle" alt="User Image"></a> </li>
+              <li class="nav-divider"> </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div>
-        <ul class="sidebar-menu" >
-          <li><a href="#"  class="btn btn-primary" data-toggle="modal" data-target="#product_view"><img src="images/li-icon1.png"></a></li>
-          <li><a href="#"  class="btn btn-primary" data-toggle="modal" data-target="#product_view2"><img src="images/li-icon2.png"></a></li>
-          <li><a href="#"  class="btn btn-primary" data-toggle="modal" data-target="#product_view3"><img src="images/li-icon3.png"></a></li>
-          <li><a href="#"  class="btn btn-primary" data-toggle="modal" data-target="#product_view4"><img src="images/li-icon4.png"></a></li>
-        </ul>
-      </div>
-      <div class="clearfix"></div>
-      <form>
-      <div class="asset-list"   id="asset_res">
-        <!--ul>
-          <li><a href="#">Asset 1</a></li>
-          <li><a href="#">Asset 2</a></li>
-          <li><a href="#">Asset 3</a></li>
-          <li><a href="#">Asset 4</a></li>
-          <li><a href="#">Asset 5</a></li>
-          <li><a href="#">Asset 6</a></li>
-          <li><a href="#">Asset 7</a></li>
-
-        </ul-->
-      </div>
-          </form>
+      <div class="nav-divider"></div>
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+          <button type="submit" name="search" id="search-btn" class="btn btn-flat"> <i class="fa fa-search"></i> </button>
+          </span> </div>
+      </form>
+	<form id="mapForm">
+	<div class="asset-list"   id="asset_res">
+		
+	</div>
+	<div class="bottom-icons">
+		  <ul>
+		    <li> <i class="fa fa-dot-circle-o"></i></li>
+		    <li> <i class="fa fa-star-o"></i></li>
+		    <li> <i class="fa fa-ban"></i></li>
+		  </ul>
+		</div>
+	</form>
+      <!--<ul class="sidebar-menu" data-widget="tree">
+        <li><a href="#"><i class="fa fa-book"></i> <span>LABELS</span></a></li>
+        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Asset 1</span></a></li>
+        <li><a href="#"><i class="fa fa-circle-o text-green"></i> <span>Asset 2</span></a></li>
+        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Asset 3</span></a></li>
+        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Asset 4</span></a></li>
+        <li><a href="#"><i class="fa fa-circle-o text-green"></i> <span>Asset 5</span></a></li>
+        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Asset 6</span></a></li>
+        <div class="bottom-icons">
+          <ul>
+            <li> <i class="fa fa-dot-circle-o"></i></li>
+            <li> <i class="fa fa-star-o"></i></li>
+            <li> <i class="fa fa-ban"></i></li>
+          </ul>
+        </div>
+      </ul>-->
     </section>
   </aside>
-  <!-- =========== Content wrapper start here==================================== -->
-  <div class="content-wrapper" id="wrapper_rmss"> 
-    <!-- <section class="content-header">
-      <h1> Remote Monitoring & Surveillance System </h1>     
-    </section>--> 
-    
-    <!-- =========== Content start here==================================== -->
-    <section  class="content">
-        
-        
-       <div id="successcheck"></div>
-        <div id="map"></div>
-      <!--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.720151017677!2d78.40704611443944!3d17.425212688055957!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb91351865fc65%3A0x98527a16d03c171a!2sKellton+Tech!5e0!3m2!1sen!2sin!4v1511936152905" width="100%" height="520" frameborder="0" style="border:0; bottom: 0px;" allowfullscreen></iframe>-->
-      <div id="push_sidebar" class="pushsidebar">
-        <div class="allaram-set">
-          <h4 class="text-center">Alarm total = 90</h4>
-          <div class="row">
-            <div class="col-lg-6"><p><img src="images/moto-temp.png">&nbsp; Motor temp = 15 </p></div>
-            <div class="col-lg-6"><p><img src="images/deishcharge-press.png">&nbsp; Discharge Pres= 15</p></div>
-            <div class="col-lg-6"><p><img src="images/intake-press.png">&nbsp; Intake Pres = 30</p></div>
-            <div class="col-lg-6"><p><img src="images/other-circle.png">&nbsp; Other = 30</p></div>
-          </div>
-        </div>
-        <hr>
-        <div class="table-list">
-          <div class="row">
-            <div class="table-responsive col-md-12">
-              <table id="sort2" class="table table-hover table-striped table-bordered  table-responsive">
-                <thead>
-                  <tr>
-                    <th>Title</th>
-                    <th>Title</th>
-                    <th>Title</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>3</td>
-                    <td>3</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <hr>
-        <div class="allaram-status">
-          <h4 class="text-center">Status</h4>
-          <div class="row">
-            <div class="col-lg-6">
-              <p><img src="images/faild-icon.png">&nbsp; Failed = </p>
-              <p><img src="images/stopped-icon.png">&nbsp; Stopped = </p>
-              <p><img src="images/running-icon.png">&nbsp; Running = </p>
-            </div>
-            <div class="col-lg-6">
-              <p> <img src="images/woopt-iocn.png">&nbsp; WO Opt = </p>
-              <p> <img src="images/woinstalation-icon.png">&nbsp; WO Installation = </p>
-              <p> <img src="images/wopull-icon.png">&nbsp; WO Pull = </p>
+  <div class="content-wrapper">
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box-body no-padding">
+            <div class="row">
+              <div class="col-lg-12">
+                <div id="map"></div>
+              </div>
+              <div class="col-lg-12">
+                <div class="allarm-events">
+                  <ul>
+                    <li>
+                      <div > <strong>Allarm Events</strong> </div>
+                    </li>
+                    <li>
+                      <marquee scrollamount="10" scrolldelay="2" direction="left" behavior="scroll" onMouseOver="this.stop()" onMouseOut="this.start();">
+                      Allarm Events Screoll Here.....
+                      </marquee>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-   <div class="modal fade product_view" id="product_view">
+
+	<div class="modal fade product_view" id="product_view">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header"> <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
@@ -258,47 +250,117 @@
         </div>
       </div>
     </div>
-	
-	
-	<!--<div class="modal fade product_view" id="product_view4">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header"> <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-            <h3 class="modal-title">Assets</h3>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-             
-            <div class="col-md-4">
-                <div>
-                  <input type="checkbox" name="checkbox" id="checkbox1" checked="">
-                  <label for="checkbox1"></label>
-                </div>
-              
-				
-              </div>
+
+    </section>
+  </div>
+  <footer class="main-footer"> <strong>Copyright &copy; 2017 <a href="#">RMSS</a>.</strong> All rights
+    reserved. </footer>
+  <aside class="control-sidebar control-sidebar-dark">
+	<?php 
+           /*For total count */ 
+             $total =  "select count(*) as count from assets_alarams where user_id = 1 "; 
+             $resulttotal = mysql_query($total, $link);
+            /*For total count */
+                      
+            /*For $dischsrgepressure count */ 
+             $dischsrgepressure =  "select Alarm_Parameter,count(*) as count1 from assets_alarams where user_id = 1 group by Alarm_Parameter "; 
+             $resultdischsrgepressure = mysql_query($dischsrgepressure, $link);
+            /*For total count */ 
+                      
+            
+            ?>
+    <div class="tab-content">
+      <h3 class="control-sidebar-heading" style="padding-top: 0px; margin-top: 0px;">Allarm Total =  <?php while($tot = mysql_fetch_array($resulttotal)){ echo $tot['count'];}?></h3>
+      <div class="tab-pane active" id="control-sidebar-settings-tab">
+        <!--div class="allam-total">
+          <ul class="">
+            <li><i class="fa fa-circle text-aqua"></i> <span> Motor Temp</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
+            <li><i class="fa fa-circle text-orange"></i> <span> Discharge</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
+            <li><i class="fa fa-circle text-purple"></i> <span> Intake Pres</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
+            <li><i class="fa fa-circle text-blue"></i> <span> Other</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
+          </ul>
+        </div-->
+	<div class="allam-total">
+		 <?php while($individualcount = mysql_fetch_array($resultdischsrgepressure)){?>
+			<ul class="">
+            <li><i class="fa fa-circle text-aqua"></i> <span> <?php  echo $individualcount['Alarm_Parameter']; ?></span> <span class="pull-right-container"> <span class="label label-primary pull-right"><?php  echo $individualcount['count1']; ?></span> </span></li>
+			</ul>
+		<?php } ?>
+	</div>
+        <div class="allarm-notification">
+          <h3 class="control-sidebar-heading">Alarm Notifications</h3>
+          <div class="table-scroll">
+            <div class="box-body table-responsive no-padding">
+              <table class="table_custom">
+		<thead>
+			<tr>
+                    <th>Date/time</th>
+                    <th>value</th>
+                    <th>AssetID/type</th>
+                  </tr>
+		</thead>
+                <tbody>
+                  
+		<?php 
+                      $alaram =  "select * from assets_alarams where user_id = 1 order by id desc limit  10"; 
+                      $resultalaram = mysql_query($alaram, $link);
+        
+			while($alaramval = mysql_fetch_array($resultalaram))
+			{
+				  
+		    ?>
+		<tr>
+                      <td><?php echo $alaramval['time']?></td>
+                    <td><?php echo $alaramval['value']?></td>
+                    <td><?php echo $alaramval['asset_id'] ."/".$alaramval['Alarm_Type']?></td>
+                  </tr>
+                 <?php } ?>
+                </tbody>
+              </table>
             </div>
           </div>
+          <div class="table-bottom-icons">
+            <ul>
+              <li> <i class="fa fa-dot-circle-o"></i></li>
+              <li> <i class="fa fa-star-o"></i></li>
+              <li> <i class="fa fa-ban"></i></li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </div>-->
-	<div class="panel-body">
-         <div id ="mygraph"></div>
-    </div>
-  </div>
-  
-  <!-- ==========footer start here ===================================== --> 
-  
-</div>
-<script src="js/jquery-2.2.3.min.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/app.min.js"></script> 
-<script>
-$(".nav_trigger_rmss").click(function() {
-	$(".content-wrapper").toggleClass("show_sidebar_rmss");
+        <div class="clearfix"></div>
+	  
+        <div class="">
+          <h3 class="control-sidebar-heading">Alarm Status</h3>
+          <div class="allam-status">
+            <ul class="">
+              <li><i class="fa fa-circle text-red"></i> <span> Failed </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
+              <li><i class="fa fa-circle text-yellow"></i> <span> Stopped </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
+              <li><i class="fa fa-circle text-green"></i> <span> Running</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
+              <li><i class="fa fa-circle text-red"></i> <span> Failed &lt; TRL </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
+              <li><i class="fa fa-circle text-orange"></i> <span> WO Opt </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
+              <li><i class="fa fa-circle text-lime"></i> <span> WO Installation </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
+              <li><i class="fa fa-circle text-aqua"></i> <span> WO Pull </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
+            </ul>
+          </div>
+        </div>
+	
+	
 
-});
-</script>
+      </div>
+    </div>
+  </aside>
+  <div class="control-sidebar-bg"></div>
+</div>
+<script src="bower_components/jquery/dist/jquery.min.js"></script> 
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> 
+<script src="bower_components/fastclick/lib/fastclick.js"></script> 
+<script src="dist/js/Rmss.min.js"></script> 
+<script src="bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script> 
+<script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script> 
+<script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script> 
+<script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script> 
+<script src="bower_components/chart.js/Chart.js"></script> 
+<script src="dist/js/demo.js"></script> 
 <script>
 $("#checkbox1").click(function(){
 	
@@ -366,25 +428,27 @@ $("#submit_field").click(function(){
 		var asset_loc_lat = [];
                 var asset_loc_long = [];
                 var asset_id = [];
+		var asset_name = [];
 		//alert(response);
 		$("#asset_res").html(response);
-		$.each($('form').serializeArray(), function(index, value){
+		$.each($('#mapForm').serializeArray(), function(index, value){
                     //alert($('[name="' + value.name + '"]').attr('lat') + $('[name="' + value.name + '"]').attr('long'));
                     asset_loc_lat.push($('[name="' + value.name + '"]').attr('lat'));
                     asset_loc_long.push($('[name="' + value.name + '"]').attr('long'));
                     asset_id.push($('[name="' + value.name + '"]').val());
+		    asset_name.push($('[name="' + value.name + '"]').attr('asset_name'));
                 });
                 console.log(asset_loc_lat);
                 console.log(asset_loc_long);
                 console.log(asset_id);
 
-		callMapFunction(asset_id,asset_loc_lat,asset_loc_long);
+		callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name);
 
 	})
 	
 });
 
-function callMapFunction(asset_id,asset_loc_lat,asset_loc_long){
+function callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name){
 var conLoaded = document.getElementById('submit_field');
 google.maps.event.addDomListener(conLoaded, 'click', init);
 
@@ -403,7 +467,7 @@ function init(){
 
 locations = [];
 	for(ass_id = 0;ass_id < asset_id.length;ass_id++){
-		locations.push(['Headquarter', '<address>Via Ottavio Assarotti, 10 - Torino <br /> 10122 Italy</address>', 'Phone: +39 011 549444', 'undefined',
+		locations.push([asset_name[ass_id], 'undefined', 'Latitude:'+ asset_loc_lat[ass_id], 'Longitude' + asset_loc_long[ass_id],
 	'undefined', asset_loc_lat[ass_id], asset_loc_long[ass_id], 'https://mapbuildr.com/assets/img/markers/solid-pin-blue.png',asset_id[0]]);
 
 	}
@@ -455,7 +519,7 @@ function bindInfoWindow(marker, map, title, desc, telephone, email, web, link,as
 			   iw.close();
 			   infoWindowVisible(false);
 		   } else {
-			   var html= "<div style='color:#000;background-color:#fff;padding:5px;width:150px;'><h4>"+title+"</h4><p>"+desc+"<p><p>"+telephone+"<p><a href='mailto:"+email+"' >"+email+"</a><a href='javascript:void(0);' onclick='comcheck( " + asset_id + " )'>google</a></div>";
+			   var html= "<div style='color:#000;background-color:#fff;padding:5px;width:150px;'><h4>"+title+"</h4><p>"+desc+"<p><p>"+telephone+"<p>"+email+"<br><a href='javascript:void(0);' onclick='comcheck( " + asset_id + " )'>Go To...</a></div>";
 			   iw = new google.maps.InfoWindow({content:html});
 			   iw.open(map,marker);
 			   infoWindowVisible(true);
@@ -535,4 +599,3 @@ function comcheck(asset_id){
 
 </body>
 </html>
-

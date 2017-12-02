@@ -77,10 +77,10 @@
                 
                 $lat = $val1["asset_loc_lat"];
                 $long = $val1["asset_loc_long"];
-                
-                echo "<ul>                         
-                         <input type='hidden' name=checkbox".$val1["asset_id"]." class='checkbox2'   value='".$val1["asset_id"] ." ' lat='".$val1["asset_loc_lat"]."' long='".$val1["asset_loc_long"]."' country_name='".$val1["country_id"]."'>
-                         <li href='#'>" .$val1["asset_name"] ." </li>
+               
+                echo "<input type='hidden' name=checkbox".$val1["asset_id"]." class='checkbox2'   value='".$val1["asset_id"] ." ' lat='".$val1["asset_loc_lat"]."' long='".$val1["asset_loc_long"]."' country_name='".$val1["country_id"]."' asset_name='".$val1["asset_name"]."'>
+			<ul class='sidebar-menu' data-widget='tree'>  
+                         <li> <a href='#'><i class='fa fa-circle-o text-green'></i><span>" .$val1["asset_name"] ."</span></a> </li>
                      </ul>";
 
         }
