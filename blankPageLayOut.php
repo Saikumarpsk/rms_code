@@ -1,10 +1,10 @@
 <?php
-	
+
     
     include './db_check.php';
     
     include './db_connect.php';
-    
+   
     $user_id=$_SESSION["user_id"];    
 		
     $sql = "select * from user_mapping where user_id = '$user_id' "; 
@@ -149,6 +149,9 @@
             <div class="row">
               <div class="col-lg-12">
                 <div id="map"></div>
+		<div class="panel-body">
+			 <div id ="mygraph"></div>
+		    </div>
               </div>
               <div class="col-lg-12">
                 <div class="allarm-events">
@@ -538,6 +541,7 @@ function bindInfoWindow(marker, map, title, desc, telephone, email, web, link,as
 
 function comcheck(asset_id){
 //alert(asset_id);
+
  $.getJSON("linegraph.php", { id: asset_id }, function(json) {
                 var chart;
                  $(document).ready(function(){
