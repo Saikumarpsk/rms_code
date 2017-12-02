@@ -1,9 +1,18 @@
 <?php
 
     
-    include './db_check.php';
-    
-    include './db_connect.php';
+    session_start();
+
+	if (!$link = mysql_connect('localhost', 'root', 'K@#L&*!)%')) 
+	    {
+		echo 'Could not connect to mysql';
+		exit;
+	    }
+
+	    if (!mysql_select_db('demo_rmss', $link)) {
+		echo 'Could not select database';
+		exit;
+	    }
    
     $user_id=$_SESSION["user_id"];    
 		
