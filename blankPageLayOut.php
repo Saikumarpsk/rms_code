@@ -374,7 +374,8 @@ $("#checkbox1").click(function(){
 	
 	$("#product_view2").hide();
 	
-	
+	if(cust_id){
+
 	$.ajax({
                     type: "POST",
                     url: 'ajax.php/countries',
@@ -391,7 +392,7 @@ $("#checkbox1").click(function(){
 			    }
 
 });
-	
+}	
 	
 });
 
