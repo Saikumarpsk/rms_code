@@ -10,6 +10,7 @@
 		if(isset($_POST)  && $_POST['condition_type'] == 1 )
  		 {
 			$user_type =$_SESSION['user_role'];
+			$_SESSION['cust_id'] = $_POST['cust_id'];
 			if($user_type == 0)
 			    {
 				$user_id  = $_SESSION["user_id"];
@@ -31,6 +32,7 @@
 				}
 			}
 		}else{
+$_SESSION['cust_id'] = $_POST['cust_id'];																																				
 			$cust_id=$_POST['cust_id'];
 		        $sql =  "select * from customer_branch where customer_id = '$cust_id' group by cust_name_local";
 		        $result = mysql_query($sql, $link);

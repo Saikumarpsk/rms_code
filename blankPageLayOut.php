@@ -449,16 +449,16 @@ $("#submit_field").click(function(){
     
    var values1=myArray1.join(",");
   
-	var cust_id1 = document.cookie;
+	var cust_id1 = "<?php echo $_SESSION['cust_id']?>";
 	
 	var valid_cust_id1=cust_id1.split(";");
 	var final_cust_id1=valid_cust_id1[0];
-	if(typeof(final_cust_id1) != 'undefined' && typeof(final_cust_id1) != ''){
+	if(typeof(cust_id1) != 'undefined' && typeof(cust_id1) != ''){
 	$.ajax({
 		type:'POST',
 		url : 'monitor.php/maps',
 		data: {
-		cust_id1: final_cust_id1,
+		cust_id1: cust_id1,
 		condition_type : 3,
 		fields1 : values1
 		},
