@@ -436,6 +436,146 @@ $("#submit_company").click(function(){
 });
 
 </script>
+<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCYVYQPAkMd4xAzjUq5UnBIfatKdYE0CCg&extension=.js'></script> 
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script>
+$("#submit_field").click(function(){
+	
+	var myArray = [];
+    $(":checkbox:checked").each(function() {
+        myArray.push(this.value);
+    });
+    
+   var values=myArray.join(",");
+  
+	var cust_id = document.cookie;
+	
+	var valid_cust_id=cust_id.split(";");
+	var final_cust_id1=valid_cust_id[0];
+	if(typeof(final_cust_id1) != 'undefined' && typeof(final_cust_id1) != ''){
+	$.ajax({
+		type:'POST',
+		url : 'ajax.php/maplist',
+		data: {
+		cust_id: final_cust_id1,
+		condition_type : 3,
+		fields : values
+		},
+		success:function(response){
+			//alert(response);
+			var asset_loc_lat = [];
+		        var asset_loc_long = [];
+		        var asset_id = [];
+			var asset_name = [];
+			$("#asset_res").html(response);
+			$.each($('#mapForm').serializeArray(), function(index, value){
+		            //alert($('[name="' + value.name + '"]').attr('lat') + $('[name="' + value.name + '"]').attr('long'));
+		            asset_loc_lat.push($('[name="' + value.name + '"]').attr('lat'));
+		            asset_loc_long.push($('[name="' + value.name + '"]').attr('long'));
+		            asset_id.push($('[name="' + value.name + '"]').val());
+			    asset_name.push($('[name="' + value.name + '"]').attr('asset_name'));
+		        });
+		        console.log(asset_loc_lat);
+		        console.log(asset_loc_long);
+		        console.log(asset_id);
+
+			callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name);
+		}		
+
+	});
+	}
+	
+});
+
+function callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name){
+var conLoaded = document.getElementById('submit_field');
+google.maps.event.addDomListener(conLoaded, 'mouseout', init);
+
+function init(){
+		var mapOptions = {
+                    // How zoomed in you want the map to start at (always required)
+                    zoom: 5,
+
+                    // The latitude and longitude to center the map (always required)
+                    center: new google.maps.LatLng(20.5937, 78.9629), // New York
+					mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    // How you would like to style the map. 
+                    // This is where you would paste any style found on Snazzy Maps.
+                    styles: [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"color":"#000000"},{"lightness":13}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#144b53"},{"lightness":14},{"weight":1.4}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#08304b"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#0c4152"},{"lightness":5}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#0b434f"},{"lightness":25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#0b3d51"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"transit","elementType":"all","stylers":[{"color":"#146474"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#021019"}]}]
+                };
+
+locations = [];
+	for(ass_id = 0;ass_id < asset_id.length;ass_id++){
+		locations.push([asset_name[ass_id], 'undefined', 'Latitude:'+ asset_loc_lat[ass_id], 'Longitude' + asset_loc_long[ass_id],
+	'undefined', asset_loc_lat[ass_id], asset_loc_long[ass_id], 'https://mapbuildr.com/assets/img/markers/solid-pin-blue.png',asset_id[0]]);
+
+	}
+
+	console.log(locations);
+
+	var mapElement = document.getElementById('map');
+var bounds = new google.maps.LatLngBounds();
+                // Create the Google Map using our element and options defined above
+                var map = new google.maps.Map(mapElement, mapOptions);
+		for (i = 0; i < locations.length; i++) {
+			if (locations[i][1] =='undefined'){ description ='';} else { description = locations[i][1];}
+			if (locations[i][2] =='undefined'){ telephone ='';} else { telephone = locations[i][2];}
+			if (locations[i][3] =='undefined'){ email ='';} else { email = locations[i][3];}
+		   if (locations[i][4] =='undefined'){ web ='';} else { web = locations[i][4];}
+		   if (locations[i][7] =='undefined'){ markericon ='';} else { markericon = locations[i][7];}
+		   if (locations[i][8] =='undefined'){ asset_id ='';} else { asset_id = locations[i][8];}
+			// Let's also add a marker while we're at it
+			var marker = new google.maps.Marker({
+			    icon: markericon,
+				position: new google.maps.LatLng(locations[i][5], locations[i][6]),
+				map: map,
+				title: locations[i][0],
+				desc: description,
+				tel: telephone,
+				email: email,
+				web: web,
+				asset_id:asset_id
+			});
+				link = '';      
+				bounds.extend(marker.position);      
+				bindInfoWindow(marker, map, locations[i][0], description, telephone, email, web, link,asset_id);
+		}
+		map.fitBounds(bounds);
+function bindInfoWindow(marker, map, title, desc, telephone, email, web, link,asset_id) {
+				
+	var infoWindowVisible = (function () {
+		  var currentlyVisible = false;
+		  return function (visible) {
+			  if (visible !== undefined) {
+				  currentlyVisible = visible;
+			  }
+			  return currentlyVisible;
+		   };
+	   }());
+	   iw = new google.maps.InfoWindow();
+	   google.maps.event.addListener(marker, 'click', function() {
+		   if (infoWindowVisible()) {
+			   iw.close();
+			   infoWindowVisible(false);
+		   } else {
+			   var html= "<div style='color:#000;background-color:#fff;padding:5px;width:150px;'><h4>"+title+"</h4><p>"+desc+"<p><p>"+telephone+"<p>"+email+"<br><a href='javascript:void(0);'>Go To...</a></div>";
+			   iw = new google.maps.InfoWindow({content:html});
+			   iw.open(map,marker);
+			   infoWindowVisible(true);
+			   
+		   }
+		});
+			
+	google.maps.event.addListener(iw, 'closeclick', function () {
+		infoWindowVisible(false);
+	});
+
+ 	}
+}
+
+}
+</script>
 
 
 </body>
