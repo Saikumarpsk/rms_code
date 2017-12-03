@@ -377,7 +377,7 @@ $("#checkbox1").click(function(){
 	
 	$.ajax({
                     type: "POST",
-                    url: 'ajax.php',
+                    url: 'ajax.php/countries',
                     data: {
 			cust_id:cust_id,
 			condition_type: type, 
