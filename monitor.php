@@ -4,27 +4,27 @@
 
 	include './db_check.php';
 
-	if ($_SERVER['PATH_INFO'] === "/maplist") {
+	if ($_SERVER['PATH_INFO'] === "/maps") {
 		if(isset($_POST)  && $_POST['condition_type'] == 3)
-		    {
-			$cust_id=$_POST['cust_id'];
-			$countries =$_POST['fields'];
+		    {print_r($_POST);
+			$cust_id1 =$_POST['cust_id1'];
+			$countries1 =$_POST['fields1'];
 
-			$array=explode(',',$countries);
+			$array1=explode(',',$countries1);
 
-			$unnecessary =array(1,'on','on');
+			$unnecessary1 =array(1,'on','on');
 
-			$result = array_diff($array,$unnecessary);
+			$result1 = array_diff($array1,$unnecessary1);
 
 		       //$contries =implode(',', $result);
 
-			$fields ="'" . implode ( "', '", $result ) . "'"; 
+			$fields1 ="'" . implode ( "', '", $result1 ) . "'"; 
 
-			$sql =  "select * from  asset_id_list where field_id in($fields) and customer_id = '$cust_id' ";
-			$result = mysql_query($sql, $link);
+			$sql1 =  "select * from  asset_id_list where field_id in($fields1) and customer_id = '$cust_id1' ";
+			$result1 = mysql_query($sql1, $link);
 			$lat = [];
 			$long = [];
-			while($val1 = mysql_fetch_array($result))
+			while($val1 = mysql_fetch_array($result1))
 			{
 				
 				$lat = $val1["asset_loc_lat"];

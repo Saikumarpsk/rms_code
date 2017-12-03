@@ -449,18 +449,18 @@ $("#submit_field").click(function(){
     
    var values1=myArray1.join(",");
   
-	var cust_id = document.cookie;
+	var cust_id1 = document.cookie;
 	
-	var valid_cust_id=cust_id.split(";");
-	var final_cust_id1=valid_cust_id[0];
+	var valid_cust_id1=cust_id1.split(";");
+	var final_cust_id1=valid_cust_id1[0];
 	if(typeof(final_cust_id1) != 'undefined' && typeof(final_cust_id1) != ''){
 	$.ajax({
 		type:'POST',
-		url : 'monitor.php/maplist',
+		url : 'monitor.php/maps',
 		data: {
-		cust_id: final_cust_id1,
+		cust_id1: final_cust_id1,
 		condition_type : 3,
-		fields : values1
+		fields1 : values1
 		},
 		success:function(response){
 			//alert(response);
@@ -476,7 +476,7 @@ $("#submit_field").click(function(){
 	}
 	
 });
-
+/*
 function callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name){
 var conLoaded = document.getElementById('submit_field');
 google.maps.event.addDomListener(conLoaded, 'mouseout', init);
@@ -563,7 +563,7 @@ function bindInfoWindow(marker, map, title, desc, telephone, email, web, link,as
  	}
 }
 
-}
+}*/
 </script>
 
 
