@@ -398,6 +398,45 @@ $("#checkbox1").click(function(){
 
 </script>
 
+<script>
+$("#submit_company").click(function(){
+	
+	//$("#product_view2").hide();
+	
+	var myArray = [];
+    $(":checkbox:checked").each(function() {
+        myArray.push(this.value);
+    });
+
+   var values=myArray.join(",");
+   var cust_id = document.cookie;
+	
+	var valid_cust_id=cust_id.split(";");
+	var final_cust_id=valid_cust_id[0];
+	
+	if(typeof(final_cust_id) != 'undefined' && typeof(final_cust_id) != ''){
+	$.ajax({
+                    type: "POST",
+                    url: 'ajax.php/fields',
+                    data: {
+			cust_id:final_cust_id,
+			condition_type: 2, 
+			countries: values,
+			},
+			
+                    success: function (response) {
+			$("#fields_res").html(response);
+			},
+			 error: function(jqXHR, status, err){
+				alert(jqXHR.responseText);
+			    }
+
+	});
+	}
+});
+
+</script>
+
 
 </body>
 </html>
