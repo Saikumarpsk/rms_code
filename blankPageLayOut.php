@@ -413,13 +413,24 @@ $("#submit_company").click(function(){
 	var valid_cust_id=cust_id.split(";");
 	var final_cust_id=valid_cust_id[0];
 	
-	$.post("ajax.php/fields",  {'cust_id' : final_cust_id , condition_type: '2' , 'countries': values}  , function(response){
-		
-		
-		$("#fields_res").html(response);
-		
-	})
-	
+
+	$.ajax({
+                    type: "POST",
+                    url: 'ajax.php/fields',
+                    data: {
+			cust_id:final_cust_id,
+			condition_type: 2, 
+			countries: values
+			},
+			
+                    success: function (response) {
+			$("#fields_res").html(response);
+			},
+			 error: function(jqXHR, status, err){
+				alert(jqXHR.responseText);
+			    }
+
+	});
 });
 
 </script>
@@ -442,7 +453,7 @@ $("#submit_field").click(function(){
 	var valid_cust_id=cust_id.split(";");
 	var final_cust_id=valid_cust_id[0];
 	
-	$.post("ajax.php/maplist",  {'cust_id' : final_cust_id , condition_type: '3' , 'fields': values}  , function(response){
+	/*$.post("ajax.php/maplist",  {'cust_id' : final_cust_id , condition_type: '3' , 'fields': values}  , function(response){
 		var asset_loc_lat = [];
                 var asset_loc_long = [];
                 var asset_id = [];
@@ -462,7 +473,7 @@ $("#submit_field").click(function(){
 
 		callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name);
 
-	})
+	})*/
 	
 });
 
