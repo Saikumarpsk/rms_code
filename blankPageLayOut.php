@@ -413,7 +413,7 @@ $("#submit_company").click(function(){
 	var valid_cust_id=cust_id.split(";");
 	var final_cust_id=valid_cust_id[0];
 	
-
+/*
 	$.ajax({
                     type: "POST",
                     url: 'ajax.php/fields',
@@ -430,7 +430,7 @@ $("#submit_company").click(function(){
 				alert(jqXHR.responseText);
 			    }
 
-	});
+	});*/
 });
 
 </script>
@@ -453,7 +453,7 @@ $("#submit_field").click(function(){
 	var valid_cust_id=cust_id.split(";");
 	var final_cust_id=valid_cust_id[0];
 	
-	$.ajax({
+	/*$.ajax({
 		type:'POST',
 		url : 'ajax.php/maplist',
 		data: {
