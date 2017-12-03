@@ -469,18 +469,7 @@ $("#submit_field").click(function(){
 		        var asset_id = [];
 			var asset_name = [];
 			$("#asset_res").html(response);
-			$.each($('#mapForm').serializeArray(), function(index, value){
-		            //alert($('[name="' + value.name + '"]').attr('lat') + $('[name="' + value.name + '"]').attr('long'));
-		            asset_loc_lat.push($('[name="' + value.name + '"]').attr('lat'));
-		            asset_loc_long.push($('[name="' + value.name + '"]').attr('long'));
-		            asset_id.push($('[name="' + value.name + '"]').val());
-			    asset_name.push($('[name="' + value.name + '"]').attr('asset_name'));
-		        });
-		        console.log(asset_loc_lat);
-		        console.log(asset_loc_long);
-		        console.log(asset_id);
-
-			callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name);
+			
 		}		
 
 	});
