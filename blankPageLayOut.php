@@ -456,7 +456,7 @@ $("#submit_field").click(function(){
 	if(typeof(final_cust_id1) != 'undefined' && typeof(final_cust_id1) != ''){
 	$.ajax({
 		type:'POST',
-		url : 'ajax.php/maplist',
+		url : 'monitor.php/maplist',
 		data: {
 		cust_id: final_cust_id1,
 		condition_type : 3,
