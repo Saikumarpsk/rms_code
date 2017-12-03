@@ -50,7 +50,40 @@
 	}
 
 	if ($_SERVER['PATH_INFO'] === "/fields") {
-		echo 'hello';die();
+		//echo 'hello';die();
+
+
+		if(isset($_POST)  && $_POST['condition_type'] == 2)
+		    {
+			$cust_id=$_POST['cust_id'];
+			$countries =$_POST['countries'];
+
+			$array=explode(',',$countries);
+
+			$unnecessary =array(1,'on','on');
+
+			$result = array_diff($array,$unnecessary);
+
+			    //$contries =implode(',', $result);
+
+			$contries="'" . implode ( "', '", $result ) . "'";
+
+
+
+			$sql =  "select * from  asset_id_list where country_id in($contries) and customer_id = '$cust_id' ";
+			$result = mysql_query($sql, $link);
+
+			while($val1 = mysql_fetch_array($result))
+			{
+				echo "<div>
+				         <input type='checkbox' name=checkbox class='checkbox2'   value='".$val1["field_id"] ." '>
+				         <label for='checkbox1'>" .$val1["field_id"] ." </label>
+
+				</div>";
+
+			}
+
+		    }
 	}
 
 	
