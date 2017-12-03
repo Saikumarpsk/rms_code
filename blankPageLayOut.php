@@ -442,12 +442,12 @@ $("#submit_company").click(function(){
 <script>
 $("#submit_field").click(function(){
 	
-	var myArray = [];
+	var myArray1 = [];
     $(":checkbox:checked").each(function() {
-        myArray.push(this.value);
+        myArray1.push(this.value);
     });
     
-   var values=myArray.join(",");
+   var values1=myArray1.join(",");
   
 	var cust_id = document.cookie;
 	
@@ -460,7 +460,7 @@ $("#submit_field").click(function(){
 		data: {
 		cust_id: final_cust_id1,
 		condition_type : 3,
-		fields : values
+		fields : values1
 		},
 		success:function(response){
 			//alert(response);
