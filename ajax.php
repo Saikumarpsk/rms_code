@@ -84,7 +84,7 @@
 
 	}
 
-	if ($_SERVER['PATH_INFO'] === "/maplist") {
+	/*if ($_SERVER['PATH_INFO'] === "/maplist") {
 		if(isset($_POST)  && $_POST['condition_type'] == 3)
 		    {
 			$cust_id1 =$_POST['cust_id'];
@@ -119,7 +119,7 @@
 
 		    }
 
-	}
+	}*/
 ?>
 		
 			
