@@ -453,8 +453,17 @@ $("#submit_field").click(function(){
 	var valid_cust_id=cust_id.split(";");
 	var final_cust_id=valid_cust_id[0];
 	
-	/*$.post("ajax.php/maplist",  {'cust_id' : final_cust_id , condition_type: '3' , 'fields': values}  , function(response){
-		var asset_loc_lat = [];
+	$.ajax({
+                    type: "POST",
+                    url: 'ajax.php/maplist',
+                    data: {
+			cust_id:final_cust_id,
+			condition_type: 3, 
+			fields: values
+			},
+			
+                    success: function (response) {
+			var asset_loc_lat = [];
                 var asset_loc_long = [];
                 var asset_id = [];
 		var asset_name = [];
@@ -473,8 +482,13 @@ $("#submit_field").click(function(){
 
 		callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name);
 
-	})*/
-	
+			},
+			 error: function(jqXHR, status, err){
+				alert(jqXHR.responseText);
+			    }
+
+	});
+
 });
 
 function callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name){
