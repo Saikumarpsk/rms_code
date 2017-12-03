@@ -374,8 +374,7 @@ $("#checkbox1").click(function(){
 	
 	$("#product_view2").hide();
 	
-	if(cust_id){
-
+	if(typeof(cust_id) != 'undefined' && typeof(cust_id) != ''){
 	$.ajax({
                     type: "POST",
                     url: 'ajax.php/countries',
@@ -391,8 +390,8 @@ $("#checkbox1").click(function(){
 				alert(jqXHR.responseText);
 			    }
 
-});
-}	
+	});
+	}
 	
 });
 
