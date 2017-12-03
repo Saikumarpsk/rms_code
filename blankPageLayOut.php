@@ -449,8 +449,8 @@ $("#submit_field").click(function(){
     
    var values1=myArray1.join(",");
   
-	var cust_id1 = "<?php echo $_SESSION['cust_id']?>";
-	
+	var cust_id1 = "<?php echo $_SESSION['cust_id'] ?>";
+	alert(cust_id1);//return false;
 	var valid_cust_id1=cust_id1.split(";");
 	var final_cust_id1=valid_cust_id1[0];
 	if(typeof(cust_id1) != 'undefined' && typeof(cust_id1) != ''){
