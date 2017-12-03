@@ -87,7 +87,7 @@
 	}
 
 	if ($_SERVER['PATH_INFO'] === "/maplist") {
-		//echo "hello";die();
+		//echo "hello";print_r($_POST);ie();
 
 		if(isset($_POST)  && $_POST['condition_type'] == 3)
     {
@@ -122,6 +122,8 @@
         }
 
     }
+
+
 	}
 ?>
 		

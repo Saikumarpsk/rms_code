@@ -244,7 +244,7 @@
                   <label for="checkbox1">First Option default 3</label-->
                 </div>
               
-			   <a href="#" data-toggle="modal" data-dismiss="modal"> 
+			   <a href="" data-toggle="modal" data-dismiss="modal"> 
 <input type="button" id="submit_field"  value="submit"></a>
 				
               </div>
@@ -420,7 +420,7 @@ $("#submit_company").click(function(){
                     data: {
 			cust_id:final_cust_id,
 			condition_type: 2, 
-			countries: values
+			countries: values,
 			},
 			
                     success: function (response) {
@@ -438,7 +438,7 @@ $("#submit_company").click(function(){
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script>
-    
+
 $("#submit_field").click(function(){
 	
 	var myArray = [];
@@ -454,16 +454,37 @@ $("#submit_field").click(function(){
 	var final_cust_id=valid_cust_id[0];
 	
 	$.ajax({
-                    type: "POST",
-                    url: 'ajax.php/maplist',
-                    data: {
-			cust_id:final_cust_id,
-			condition_type: 3, 
-			fields: values
-			},
-			
-                    success: function (response) {
+		type:'POST',
+		url : 'ajax.php/maplist',
+		data: {
+		cust_id: final_cust_id,
+		condition_type : 3,
+		fields : values
+		},
+		success:function(response){
+			//alert(response);
 			var asset_loc_lat = [];
+		        var asset_loc_long = [];
+		        var asset_id = [];
+			var asset_name = [];
+			$("#asset_res").html(response);
+			$.each($('#mapForm').serializeArray(), function(index, value){
+		            //alert($('[name="' + value.name + '"]').attr('lat') + $('[name="' + value.name + '"]').attr('long'));
+		            asset_loc_lat.push($('[name="' + value.name + '"]').attr('lat'));
+		            asset_loc_long.push($('[name="' + value.name + '"]').attr('long'));
+		            asset_id.push($('[name="' + value.name + '"]').val());
+			    asset_name.push($('[name="' + value.name + '"]').attr('asset_name'));
+		        });
+		        console.log(asset_loc_lat);
+		        console.log(asset_loc_long);
+		        console.log(asset_id);
+
+			callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name);
+		}		
+
+	});
+	/*$.post("ajax.php/maplist",  {'cust_id' : final_cust_id , condition_type: '3' , 'fields': values}  , function(response){
+		var asset_loc_lat = [];
                 var asset_loc_long = [];
                 var asset_id = [];
 		var asset_name = [];
@@ -482,15 +503,9 @@ $("#submit_field").click(function(){
 
 		callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name);
 
-			},
-			 error: function(jqXHR, status, err){
-				alert(jqXHR.responseText);
-			    }
-
-	});
-
+	});*/
+	
 });
-
 function callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name){
 var conLoaded = document.getElementById('submit_field');
 google.maps.event.addDomListener(conLoaded, 'mouseout', init);
