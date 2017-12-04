@@ -436,7 +436,7 @@ $("#submit_field").click(function(){
     });
     
    var values=myArray.join(",");
-  
+  document.cookie = 'fieldsValues = ' + values;
 	var cust_id = document.cookie;
 	
 	var valid_cust_id=cust_id.split(";");
@@ -459,12 +459,257 @@ $("#submit_field").click(function(){
                 console.log(asset_loc_lat);
                 console.log(asset_loc_long);
                 console.log(asset_id);
-
-		callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name);
+load(asset_id,asset_loc_lat,asset_loc_long,asset_name) ;
+		//callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name);
 
 	})
 	
 });
+
+$(function(){
+
+ 
+        var uluru = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      
+
+})
+
+var markers = [];
+setInterval(function () {
+
+	var condition_type =3;
+	//var fields = $.cookie('storeAssets');
+	//alert(condition_type);
+
+	var values = document.cookie;
+	var getCookies = values.split(";");
+	var finalValues = getCookies[1];
+	var final_cust_id=values[0];
+	console.log("hhello"+finalValues); 
+	if(typeof(values) != 'undefined' && typeof(values) != ''){
+		$.ajax({
+			type:'POST',
+			data:{
+				cust_id: final_cust_id,
+				condition_type : 3,
+				fields: finalValues			
+			},
+			url:'ajax.php',
+			success:function(response){
+				//$("#asset_res").html(response);
+				var asset_loc_lat = [];
+				var asset_loc_long = [];
+				var asset_id = [];
+				var asset_name = [];
+				$.each($('#mapForm').serializeArray(), function(index, value){
+				    //alert($('[name="' + value.name + '"]').attr('lat') + $('[name="' + value.name + '"]').attr('long'));
+				    asset_loc_lat.push($('[name="' + value.name + '"]').attr('lat'));
+				    asset_loc_long.push($('[name="' + value.name + '"]').attr('long'));
+				    asset_id.push($('[name="' + value.name + '"]').val());
+				    asset_name.push($('[name="' + value.name + '"]').attr('asset_name'));
+				});
+				console.log(asset_loc_lat);
+				console.log(asset_loc_long);
+				console.log(asset_id);
+				DeleteMarkers(asset_id,asset_loc_lat,asset_loc_long,asset_name);
+				BindMarker(asset_id,asset_loc_lat,asset_loc_long,asset_name);
+				//callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name);
+
+			}
+		});
+	}
+
+    
+}, 25000);
+
+function DeleteMarkers() {
+    //Loop through all the markers and remove
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+
+
+    markers = [];
+};
+
+var customIcons = {
+    blue: {
+        icon: 'http://labs.google.com/ridefinder/images/mm_20_blue.png',
+        shadow: 'http://labs.google.com/ridefinder/images/mm_20_shadow.png'
+    },
+    red: {
+        icon: 'http://labs.google.com/ridefinder/images/mm_20_red.png',
+        shadow: 'http://labs.google.com/ridefinder/images/mm_20_shadow.png'
+    }
+};
+
+
+var map = null;
+var infoWindow = null;
+function load(asset_id,asset_loc_lat,asset_loc_long,asset_name) {//alert(asset_id.length);
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: new google.maps.LatLng(-29.86519774, 30.98538962),
+        zoom: 5,
+        mapTypeId: 'terrain',
+			styles: [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"color":"#000000"},{"lightness":13}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#144b53"},{"lightness":14},{"weight":1.4}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#08304b"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#0c4152"},{"lightness":5}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#0b434f"},{"lightness":25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#0b3d51"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"transit","elementType":"all","stylers":[{"color":"#146474"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#021019"}]}]
+        
+    });
+
+
+    infoWindow = new google.maps.InfoWindow;
+
+    // Change this depending on the name of your PHP file
+    BindMarker(asset_id,asset_loc_lat,asset_loc_long,asset_name);
+}
+ 
+
+function BindMarker(asset_id,asset_loc_lat,asset_loc_long,asset_name) {
+var bounds = new google.maps.LatLngBounds();
+locations = [];
+	for(ass_id = 0;ass_id < asset_id.length;ass_id++){
+		locations.push([asset_name[ass_id], 'undefined', 'Latitude:'+ asset_loc_lat[ass_id], 'Longitude' + asset_loc_long[ass_id],
+	'undefined', asset_loc_lat[ass_id], asset_loc_long[ass_id], 'https://mapbuildr.com/assets/img/markers/solid-pin-blue.png',asset_id[0]]);
+
+	}
+console.log(locations);
+
+for (i = 0; i < locations.length; i++) {
+			if (locations[i][1] =='undefined'){ description ='';} else { description = locations[i][1];}
+			if (locations[i][2] =='undefined'){ telephone ='';} else { telephone = locations[i][2];}
+			if (locations[i][3] =='undefined'){ email ='';} else { email = locations[i][3];}
+		   if (locations[i][4] =='undefined'){ web ='';} else { web = locations[i][4];}
+		   if (locations[i][7] =='undefined'){ markericon ='';} else { markericon = locations[i][7];}
+		   if (locations[i][8] =='undefined'){ asset_id ='';} else { asset_id = locations[i][8];}
+			// Let's also add a marker while we're at it
+			var marker = new google.maps.Marker({
+			    icon: markericon,
+				position: new google.maps.LatLng(locations[i][5], locations[i][6]),
+				map: map,
+				title: locations[i][0],
+				desc: description,
+				tel: telephone,
+				email: email,
+
+				web: web,
+
+				asset_id:asset_id
+
+			});
+				markers.push(marker);
+				link = '';      
+				bounds.extend(marker.position);      
+				bindInfoWindow(marker, map, locations[i][0], description, telephone, email, web, link,asset_id);
+				//bindInfoWindow(marker, map, infoWindow);
+
+		}
+map.fitBounds(bounds);
+/*
+    downloadUrl("genxml.php", function (data) {
+        var xml = data.responseXML;
+        var markers = xml.documentElement.getElementsByTagName("marker");
+
+        for (var i = 0; i < markers.length; i++) {
+
+            var point = new google.maps.LatLng(
+                parseFloat(markers[i].getAttribute("lat")),
+                parseFloat(markers[i].getAttribute("lon")));
+
+
+            var icon = customIcons["blue"] || {};
+            var marker = new google.maps.Marker({
+                map: map,
+                position: point,
+                icon: icon.icon,
+                shadow: icon.shadow
+            });
+
+            markers.push(marker);
+
+
+            bindInfoWindow(marker, map, infoWindow);
+        }
+    });*/
+}
+
+function bindInfoWindow(marker, map, title, desc, telephone, email, web, link,asset_id) {
+
+				
+
+	var infoWindowVisible = (function () {
+
+		  var currentlyVisible = false;
+
+		  return function (visible) {
+
+			  if (visible !== undefined) {
+
+				  currentlyVisible = visible;
+
+			  }
+
+			  return currentlyVisible;
+
+		   };
+
+	   }());
+
+	   iw = new google.maps.InfoWindow();
+
+	   google.maps.event.addListener(marker, 'click', function() {
+
+		   if (infoWindowVisible()) {
+
+			   iw.close();
+
+			   infoWindowVisible(false);
+
+		   } else {
+
+			   var html= "<div style='color:#000;background-color:#fff;padding:5px;width:150px;'><h4>"+title+"</h4><p>"+desc+"<p><p>"+telephone+"<p>"+email+"<br><a href='javascript:void(0);' onclick='comcheck( " + asset_id + " )'>Go To...</a></div>";
+
+			   iw = new google.maps.InfoWindow({content:html});
+
+			   iw.open(map,marker);
+
+			   infoWindowVisible(true);
+
+			   
+
+		   }
+
+		});
+
+			
+
+	google.maps.event.addListener(iw, 'closeclick', function () {
+
+		infoWindowVisible(false);
+
+	});
+
+
+
+ 	}
+
+/*
+function bindInfoWindow(marker, map, infoWindow) {
+            google.maps.event.addListener(marker, 'click', function () {
+ 
+                infoWindow.open(map, marker);
+            });
+        }
+*/
+function doNothing() { }
+/*
+
 
 function callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name){
 var conLoaded = document.getElementById('submit_field');
@@ -553,7 +798,7 @@ function bindInfoWindow(marker, map, title, desc, telephone, email, web, link,as
 }
 
 }
-
+*/
 function comcheck(asset_id){
 //alert(asset_id);
 
