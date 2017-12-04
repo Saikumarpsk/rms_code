@@ -156,22 +156,42 @@
 			<!--input type="button" id="showmap" value="Back" -->
 		    </div>
               </div>
-              <!--div class="col-lg-12">
+                
+                  <?php
+                 
+                 $scrollingalaram =  "select * from assets_alarams where user_id = 1 order by id desc limit 10";
+                      $resultscrollingalaram = mysql_query($scrollingalaram, $link);
+                
+                      ?>
+                 
+                 
+<!--/*scrolling alarams*/-->
+               <div class="col-lg-12">
                 <div class="allarm-events">
                   <ul>
-                    <li>
-                      <div > <strong>Allarm Events</strong> </div>
-                    </li>
+                   
                     <li>
                       <marquee scrollamount="10" scrolldelay="2" direction="left" behavior="scroll" onMouseOver="this.stop()" onMouseOut="this.start();">
-                      Allarm Events Screoll Here.....
+                     <?php
+                          while($scrolingalaramval = mysql_fetch_assoc($resultscrollingalaram))
+            {
+                          ?>
+                         
+<!--                          Allarm Events Screoll Here.....-->
+<b> AsseetId : </b>  <?php echo $scrolingalaramval['asset_id']; ?>
+<b> TIME : </b><?php echo $scrolingalaramval['time']; ?> 
+<b>Parameeter </b><?php echo $scrolingalaramval['Alarm_Parameter'];?>
+<b> Type : </b><?php echo $scrolingalaramval['Alarm_Type'];?> ----/
+                         
+                        <?php } ?>
                       </marquee>
                     </li>
                   </ul>
                 </div>
-              </div-->
+              </div>
             </div>
           </div>
+            
         </div>
       </div>
 
@@ -276,83 +296,7 @@
             
             ?>
     <div class="tab-content">
-      <h3 class="control-sidebar-heading" style="padding-top: 0px; margin-top: 0px;">Allarm Total =  <?php while($tot = mysql_fetch_array($resulttotal)){ echo $tot['count'];}?></h3>
-      <div class="tab-pane active" id="control-sidebar-settings-tab">
-        <!--div class="allam-total">
-          <ul class="">
-            <li><i class="fa fa-circle text-aqua"></i> <span> Motor Temp</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-            <li><i class="fa fa-circle text-orange"></i> <span> Discharge</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-            <li><i class="fa fa-circle text-purple"></i> <span> Intake Pres</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-            <li><i class="fa fa-circle text-blue"></i> <span> Other</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-          </ul>
-        </div-->
-	<div class="allam-total">
-		 <?php while($individualcount = mysql_fetch_array($resultdischsrgepressure)){?>
-			<ul class="">
-            <li><i class="fa fa-circle text-aqua"></i> <span> <?php  echo $individualcount['Alarm_Parameter']; ?></span> <span class="pull-right-container"> <span class="label label-primary pull-right"><?php  echo $individualcount['count1']; ?></span> </span></li>
-			</ul>
-		<?php } ?>
-	</div>
-        <div class="allarm-notification">
-          <h3 class="control-sidebar-heading">Alarm Notifications</h3>
-          <div class="table-scroll">
-            <div class="box-body table-responsive no-padding">
-              <table class="table_custom">
-		<thead>
-			<tr>
-                    <th>Date/time</th>
-                    <th>value</th>
-                    <th>AssetID/type</th>
-                  </tr>
-		</thead>
-                <tbody>
-                  
-		<?php 
-                      $alaram =  "select * from assets_alarams where user_id = 1 order by id desc limit  10"; 
-                      $resultalaram = mysql_query($alaram, $link);
-        
-			while($alaramval = mysql_fetch_array($resultalaram))
-			{
-				  
-		    ?>
-		<tr>
-                      <td><?php echo $alaramval['time']?></td>
-                    <td><?php echo $alaramval['value']?></td>
-                    <td><?php echo $alaramval['asset_id'] ."/".$alaramval['Alarm_Type']?></td>
-                  </tr>
-                 <?php } ?>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="table-bottom-icons">
-            <ul>
-              <li> <i class="fa fa-dot-circle-o"></i></li>
-              <li> <i class="fa fa-star-o"></i></li>
-              <li> <i class="fa fa-ban"></i></li>
-            </ul>
-          </div>
-        </div>
-        <div class="clearfix"></div>
-	  
-        <div class="">
-          <h3 class="control-sidebar-heading">Alarm Status</h3>
-          <div class="allam-status">
-            <ul class="">
-              <li><i class="fa fa-circle text-red"></i> <span> Failed </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-              <li><i class="fa fa-circle text-yellow"></i> <span> Stopped </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-              <li><i class="fa fa-circle text-green"></i> <span> Running</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-              <li><i class="fa fa-circle text-red"></i> <span> Failed &lt; TRL </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-              <li><i class="fa fa-circle text-orange"></i> <span> WO Opt </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-              <li><i class="fa fa-circle text-lime"></i> <span> WO Installation </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-              <li><i class="fa fa-circle text-aqua"></i> <span> WO Pull </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-            </ul>
-          </div>
-        </div>
-	
-	
-
-      </div>
+     
     </div>
   </aside>
   <div class="control-sidebar-bg"></div>
@@ -366,8 +310,21 @@
 <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script> 
 <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script> 
 <script src="bower_components/chart.js/Chart.js"></script> 
-<script src="dist/js/demo.js"></script> 
+<script src="dist/js/demo.js"></script>
+
+<script>4 /*for alram functionality */
+    $(function(){
+      function loadNum()
+      { 
+        $('.tab-content').load('autoalarams.php');
+        setTimeout(loadNum, 30000); // makes it reload every 10 sec
+      }
+      loadNum(); // start the process...
+    });
+     /*for alram functionality */
+ </script>
 <script>
+   
 $("#checkbox1").click(function(){
 	
 	var cust_id =$("#checkbox1").val();

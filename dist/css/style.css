@@ -85,7 +85,7 @@
 .allarm-events ul { margin:10px 0px; padding: 0px; width: 100%;}
 .allarm-events ul li{ list-style: none; display: inline-block; }
 .allarm-events ul li:first-child{ background: #3c8dbc; width: 10%; padding: 15px; color: white; }
-.allarm-events ul li:last-child{ width: 88%;}
+.allarm-events ul li:last-child{ width: 100%;}
 #right-triangle {    width: 0;    height: 0;    border-left: 20px solid #103252;    border-top: 10px solid transparent;    border-bottom: 10px solid transparent;}
 .user-panel{ background: #374850 }
 
