@@ -244,8 +244,8 @@
                   <label for="checkbox1">First Option default 3</label-->
                 </div>
               
-			   <a href="" data-toggle="modal" data-dismiss="modal"> 
-<input type="button" id="submit_field"  value="submit"></a>
+			   <a href="" data-toggle="modal" data-dismiss="modal">
+<input type="button" id="submit_field"  value="submit"></a> 
 				
               </div>
             </div>
@@ -363,7 +363,7 @@
 <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script> 
 <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script> 
 <script src="bower_components/chart.js/Chart.js"></script> 
-<script src="dist/js/demo.js"></script> 
+<!--script src="dist/js/demo.js"></script--> 
 <script>
 $("#checkbox1").click(function(){
 	
@@ -372,12 +372,12 @@ $("#checkbox1").click(function(){
 	document.cookie = cust_id;
 	//style="display: none;
 	
-	$("#product_view2").hide();
+//	$("#product_view2").hide();
 	
-	if(typeof(cust_id) != 'undefined' && typeof(cust_id) != ''){
+	
 	$.ajax({
                     type: "POST",
-                    url: 'ajax.php/countries',
+                    url: 'ajax.php',
                     data: {
 			cust_id:cust_id,
 			condition_type: type, 
@@ -390,14 +390,13 @@ $("#checkbox1").click(function(){
 				alert(jqXHR.responseText);
 			    }
 
-	});
-	}
+});
+	
 	
 });
 
 
 </script>
-
 <script>
 $("#submit_company").click(function(){
 	
@@ -414,25 +413,13 @@ $("#submit_company").click(function(){
 	var valid_cust_id=cust_id.split(";");
 	var final_cust_id=valid_cust_id[0];
 	
-	if(typeof(final_cust_id) != 'undefined' && typeof(final_cust_id) != ''){
-	$.ajax({
-                    type: "POST",
-                    url: 'ajax.php/fields',
-                    data: {
-			cust_id:final_cust_id,
-			condition_type: 2, 
-			countries: values,
-			},
-			
-                    success: function (response) {
-			$("#fields_res").html(response);
-			},
-			 error: function(jqXHR, status, err){
-				alert(jqXHR.responseText);
-			    }
-
-	});
-	}
+	$.post("ajax.php",  {'cust_id' : final_cust_id , condition_type: '2' , 'countries': values}  , function(response){
+		
+		//alert(response); return false;
+		$("#fields_res").html(response);
+		
+	})
+	
 });
 
 </script>
@@ -440,43 +427,46 @@ $("#submit_company").click(function(){
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script>
+    
 $("#submit_field").click(function(){
 	
-	var myArray1 = [];
+/*	var myArray = [];
     $(":checkbox:checked").each(function() {
-        myArray1.push(this.value);
+        myArray.push(this.value);
     });
-    
-   var values1=myArray1.join(",");
+*/    
+//   var values=myArray.join(",");
   
-	var cust_id1 = "<?php echo $_SESSION['cust_id'] ?>";
-	alert(cust_id1);//return false;
-	var valid_cust_id1=cust_id1.split(";");
-	var final_cust_id1=valid_cust_id1[0];
-	if(typeof(cust_id1) != 'undefined' && typeof(cust_id1) != ''){
-	$.ajax({
-		type:'POST',
-		url : 'monitor.php/maps',
-		data: {
-		cust_id1: cust_id1,
-		condition_type : 3,
-		fields1 : values1
-		},
-		success:function(response){
-			//alert(response);
-			var asset_loc_lat = [];
-		        var asset_loc_long = [];
-		        var asset_id = [];
-			var asset_name = [];
-			$("#asset_res").html(response);
-			
-		}		
+	var cust_id = document.cookie;
+	
+	var valid_cust_id=cust_id.split(";");
+	var final_cust_id=valid_cust_id[0];
+var cheValues =$(':Checkbox:checked').map(function() {return this.value;}).get().join(',');//	alert(cheValues);return false;
+
+	$.post("ajax.php",  {'cust_id' : final_cust_id , condition_type: 3 , 'fields': cheValues}  , function(response){
+		var asset_loc_lat = [];
+                var asset_loc_long = [];
+                var asset_id = [];
+		var asset_name = [];
+//		alert(response);// return false;  
+		$("#asset_res").html(response);
+		$.each($('#mapForm').serializeArray(), function(index, value){
+                    //alert($('[name="' + value.name + '"]').attr('lat') + $('[name="' + value.name + '"]').attr('long'));
+                    asset_loc_lat.push($('[name="' + value.name + '"]').attr('lat'));
+                    asset_loc_long.push($('[name="' + value.name + '"]').attr('long'));
+                    asset_id.push($('[name="' + value.name + '"]').val());
+		    asset_name.push($('[name="' + value.name + '"]').attr('asset_name'));
+                });
+                console.log(asset_loc_lat);
+                console.log(asset_loc_long);
+                console.log(asset_id);
+
+		callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name);
 
 	});
-	}
 	
 });
-/*
+
 function callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name){
 var conLoaded = document.getElementById('submit_field');
 google.maps.event.addDomListener(conLoaded, 'mouseout', init);
@@ -548,7 +538,7 @@ function bindInfoWindow(marker, map, title, desc, telephone, email, web, link,as
 			   iw.close();
 			   infoWindowVisible(false);
 		   } else {
-			   var html= "<div style='color:#000;background-color:#fff;padding:5px;width:150px;'><h4>"+title+"</h4><p>"+desc+"<p><p>"+telephone+"<p>"+email+"<br><a href='javascript:void(0);'>Go To...</a></div>";
+			   var html= "<div style='color:#000;background-color:#fff;padding:5px;width:150px;'><h4>"+title+"</h4><p>"+desc+"<p><p>"+telephone+"<p>"+email+"<br><a href='javascript:void(0);' onclick='comcheck( " + asset_id + " )'>Go To...</a></div>";
 			   iw = new google.maps.InfoWindow({content:html});
 			   iw.open(map,marker);
 			   infoWindowVisible(true);
@@ -563,7 +553,67 @@ function bindInfoWindow(marker, map, title, desc, telephone, email, web, link,as
  	}
 }
 
-}*/
+}
+
+function comcheck(asset_id){
+//alert(asset_id);
+
+ $.getJSON("linegraph.php", { id: asset_id }, function(json) {
+                var chart;
+                 $(document).ready(function(){
+                
+                    chart = new Highcharts.Chart({
+                        chart: {
+                            renderTo: 'mygraph',
+                            type: 'line'
+                            
+                        },
+                        title: {
+                            text: 'Line Graph'
+                            
+                        },
+                        subtitle: {
+                            text: 'Frequency'
+                        
+                        },
+                        xAxis: {
+                            categories: json[0]['hour'],
+                             title: {
+                                text: 'Time(24 hrs Format)'
+                            },
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Frequency'
+                            },
+                            plotLines: [{
+                                value: 0,
+                                width: 1,
+                                color: '#808080'
+                            }]
+                        },
+                        tooltip: {
+                            formatter: function() {
+                                    return '<b>'+ this.series.name +'</b><br/>'+
+                                    this.x +': '+ this.y;
+                            }
+                        },
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'top',
+                            x: -10,
+                            y: 120,
+                            borderWidth: 0
+                        },
+                        series: json
+                    });
+                });
+            
+            });
+
+}
+
 </script>
 
 
