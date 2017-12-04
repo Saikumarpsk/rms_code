@@ -17,15 +17,14 @@
 	width: 100%;
 	height: 600px;
 }
-
 .table_custom {
 	border-collapse: collapse;
 	width: 100%;
 }
 .table_custom td, .table_custom th {
 	border: 1px solid #374850;
-	padding:2px 4px;
-	text-align: center;	
+	padding: 2px 4px;
+	text-align: center;
 }
 .table_custom tr:nth-child(odd) {
 	background-color: #374850;
@@ -49,47 +48,283 @@
 	color: #fff;
 	font-size: 20px;
 }
-.table-bottom-icons ul{ width: 100%; margin: 5px 0px; padding: 0px;}
-.table-bottom-icons ul li{ width: 31.3%;	list-style: none;	background: #374850; margin: 2px;float: left;text-align: center;padding: 3%;
-	color: #fff;	font-size: 20px; }
+.table-bottom-icons ul {
+	width: 100%;
+	margin: 5px 0px;
+	padding: 0px;
+}
+.table-bottom-icons ul li {
+	width: 31.3%;
+	list-style: none;
+	background: #374850;
+	margin: 2px;
+	float: left;
+	text-align: center;
+	padding: 3%;
+	color: #fff;
+	font-size: 20px;
+}
+.table .bottom-icons > ul > li {
+	width: 30%;
+	list-style: none;
+	background: #374850;
+	margin: 2px;
+	float: left;
+	text-align: center;
+	padding: 1% 3%;
+	color: #fff;
+	font-size: 20px;
+}
+.sidebar-collapse .main-nav {
+}
+.sidebar-collapse .main-nav > ul {
+	margin: 0px;
+}
+.sidebar-collapse .main-nav > ul > li {
+}
+.sidebar-collapse .main-nav ul li img {
+	margin: 2px 0px
+}
+.sidebar-collapse .bottom-icons > ul {
+	margin: 0px;
+	padding: 0px;
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	width: 95%;
+}
+.sidebar-collapse .bottom-icons > ul > li {
+	width: 100%;
+	list-style: none;
+	background: #374850;
+	margin: 2px;
+	text-align: center;
+	padding: 3%;
+	color: #fff;
+	font-size: 20px;
+}
+.allam-total {
+}
+.allam-total >ul {
+	margin: 0px;
+	padding: 0px;
+}
+.allam-total >ul>li {
+	list-style: none;
+	padding: 5px; /*border-bottom: 1px solid #374850*/
+}
+.allam-total >ul>li:hover {
+	color: #fff;
+	background: #1e282c;
+}
+.allam-total >ul>li:last-child {
+	border-bottom: none;
+}
+.allam-status {
+}
+.allam-status >ul {
+	margin: 0px;
+	padding: 0px;
+}
+.allam-status >ul>li {
+	list-style: none;
+	padding: 5px;
+}
+.allam-status >ul>li:hover {
+	color: #fff;
+	background: #1e282c;
+}
+.allam-status >ul>li:last-child {
+}
+.control-sidebar-heading {
+	padding: 0 !important;
+}
+.allarm-events {
+	background: #222d32;
+	color: #fff;
+	height: 40px;
+}
+.allarm-events ul {
+	margin: 10px 0px;
+	padding: 0px;
+	width: 100%;
+}
+.allarm-events ul li {
+	list-style: none;
+	display: inline-block;
+}
+.allarm-events ul li:first-child {
+	background: #3c8dbc;
+	width: 10%;
+	padding: 10px;
+	color: white;
+}
+.allarm-events ul li:last-child {
+	width: 88%;
+}
+#right-triangle {
+	width: 0;
+	height: 0;
+	border-left: 20px solid #103252;
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+}
+.user-panel {
+	background: #374850
+}
+.text-white {
+	color: white !important;
+}
+.temparature {
+	padding:0 15px;
+	text-align: left
+}
+.temparature > i {
+	font-size: 85px;
+	text-align: left;
+	float: left;
+	margin-top: 0;
+	margin-right: 10px;
+}
+.temparature > label {
+	font-size: 40px;
+	float: left;
+	margin-top: 15px;
+}
+.temparature_min {
+	min-height: 155px;
+}
+.small-box>.knob-pad {
+	padding: 2px 0px;
+}
+.allarm-notificationList {
+}
+.allarm-notificationList>.alert {
+	padding: 5px 15px;
+	margin-bottom: 7px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+.allarm_latest_info {
+	padding: 10px;
+	overflow: hidden;
+	max-height: 120px;
+}
+.allarm_latest_info ul {
+	padding: 10px 10px 0px auto;
+}
+.allarm_latest_info ul li {
+	list-style: circle;
+}
+.allam-pump {
+	background: #222d32;
+	height: 100%;
+	padding: 5px 10px;
+	color: #b8c7ce;
+}
+.allam-pump h3 {
+	color: #b8c7ce;
+	font-size: 18px;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+.allam-pump>.allam-total >ul>li {
+	color: #b8c7ce !important
+}
+.pump-info {
+}
+.thermometer-demo {
+	border-top: 1px solid #c4c4c4;
+	margin-bottom: 1em;
+	padding-bottom: 0.25em;
+}
+pre {
+	background: #f8f8f8;
+	border: 1px solid #ddd;
+	padding: 6px;
+	word-wrap: break-word;
+}
+.thermometer-outer {
+	background: #c4f0ff;
+	/*border: 1px solid #c4c4c4;*/
+	border-radius: 3px;
+}
+.thermometer-outer-h {
+	height: 20px;
+	width: 100%;
+}
+.thermometer-outer-v {
+	height: 421px;
+	width: 144px;
+	background: url(../img/pump.png) no-repeat;
+}
+.thermometer-inner {
+	background: #3f83f7;
+	opacity: 0.5;
+}
+.thermometer-inner-h {
+	height: 5px;
+}
+.thermometer-inner-v {
+	width: 33px;
+	left: 58px;
+}
+.pump-meter {
+	margin-top: 100px;
+	left: 30px;
+}
+.pump-meter input.knob {
+	margin: -45px 0 0 12px !important;
+}
+.graphchat {
+	width: 160px !important;
+	height: 22px;
+	bottom: 8px;
+	position: absolute;
+	left: 5px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+.graphchat .checkbox label {
+	min-height: 20px;
+	padding-left: 20px;
+	margin-bottom: 3px;
+	font-weight: 400;
+	cursor: pointer;
+}
+.graphchat .checkbox {
+	margin: 0 !important;
+}
+.graphchat-date_text_to {
+	position: absolute;
+	left: 258px;
+	bottom: 8px;
+}
+.graphchat-date_text_from{
+	position: absolute;
+	left: 0;
+	bottom: 6px;	
+	
+}
+.graphchat-datefield {
+	height: 28px;
+	margin-bottom: 5px;
 
-.table .bottom-icons > ul > li {width: 30%;	list-style: none;	background: #374850;	margin: 2px;	float: left;	text-align: center;	padding:1% 3%;	color: #fff;	font-size: 20px;
 }
 
-.sidebar-collapse .main-nav{}
-.sidebar-collapse .main-nav > ul{ margin: 0px;}
-.sidebar-collapse .main-nav > ul > li{ }
-.sidebar-collapse .main-nav ul li img{  margin: 2px 0px}
+.temparature_min h5{
+	background-color: #fff;
+	padding: 9px;
+	color: #000;
+	margin: 0;
+}
+.graphchat-datetext{
+	padding: 5px 0 0;
+	position: absolute;
+}
 
-
-.sidebar-collapse .bottom-icons > ul { margin: 0px; padding: 0px; bottom: 0;  left: 0; position: absolute; width: 95%;}
-.sidebar-collapse .bottom-icons > ul > li { width: 100%;  list-style: none;   background: #374850;  margin: 2px;text-align: center;
-	padding: 3%; color: #fff; font-size: 20px;}
-.allam-total{ }
-.allam-total >ul{ margin: 0px; padding: 0px;}
-.allam-total >ul>li { list-style: none; padding:5px; /*border-bottom: 1px solid #374850*/}
-.allam-total >ul>li:hover{color: #fff;    background: #1e282c;}
-.allam-total >ul>li:last-child { border-bottom:none;}
-
-
-
-.allam-status{ }
-.allam-status >ul{ margin: 0px; padding: 0px;}
-.allam-status >ul>li { list-style: none; padding:5px; }
-.allam-status >ul>li:hover{color: #fff;    background: #1e282c;}
-.allam-status >ul>li:last-child { }
-.control-sidebar-heading{ padding: 0 !important;}
-
-
-.allarm-events{}
-.allarm-events ul { margin:10px 0px; padding: 0px; width: 100%;}
-.allarm-events ul li{ list-style: none; display: inline-block; }
-.allarm-events ul li:first-child{ background: #3c8dbc; width: 10%; padding: 15px; color: white; }
-.allarm-events ul li:last-child{ width: 88%;}
-#right-triangle {    width: 0;    height: 0;    border-left: 20px solid #103252;    border-top: 10px solid transparent;    border-bottom: 10px solid transparent;}
-.user-panel{ background: #374850 }
-
-
-
-
-
+.image-iconalign {
+    height: 80px !important;
+    width: auto !important;
+    float: right !important;
+}

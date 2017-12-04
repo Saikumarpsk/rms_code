@@ -86,7 +86,7 @@
 	$cust_id=$_POST['cust_id'];
 	$countries =$_POST['fields'];
 	$_SESSION['question'] = $countries; 
-	
+	//$_SESSION['final_custid'] = $_POST['cust_id'];
         
 //print_r(implode("," ,$countries));die();
 $result_string = "'" . str_replace(",", "','", $countries) . "'";
@@ -121,7 +121,7 @@ $results = mysql_query($sql,$link);
 //            $lat = $val1["asset_loc_lat"];
 //           $long = $val1["asset_loc_long"];
                
-                echo "<input type='hidden' name=checkbox".$val1["asset_id"]." class='checkbox2'   value='".$val1["asset_id"] ." ' lat='".$val1["asset_loc_lat"]."' long='".$val1["asset_loc_long"]."' country_name='".$val1["country_id"]."' asset_name='".$val1["asset_name"]."'>
+                echo "<input type='hidden' name=checkbox".$val1["asset_id"]." class='checkbox2'   value='".$val1["asset_id"] ." ' lat='".$val1["asset_loc_lat"]."' long='".$val1["asset_loc_long"]."' country_name='".$val1["country_id"]."' asset_name='".$val1["asset_name"]."' marker_icon=0>
 			<ul class='sidebar-menu' data-widget='tree'>  
                          <li> <a href='javascript:void(0);' onclick=comcheck('".$val1["asset_id"] ."')><i class='fa fa-circle-o text-green'></i><span>" .$val1["asset_name"] ."</span></a> </li>
                      </ul>";
