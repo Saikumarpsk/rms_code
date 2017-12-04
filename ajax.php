@@ -82,12 +82,16 @@
      if(isset($_POST)  && $_POST['condition_type'] == 3)
     {//print_r($_POST);die();
        
-		//echo 'test';  die;
+	//echo 'test';  die;
 	$cust_id=$_POST['cust_id'];
-        $countries =$_POST['fields'];
+	$countries =$_POST['fields'];
+	$_SESSION['question'] = $countries; 
+	
+        
 //print_r(implode("," ,$countries));die();
 $result_string = "'" . str_replace(",", "','", $countries) . "'";
 
+//print_r($_SESSION['question']);die();
  $sql =  "select * from  asset_id_list where field_id in($result_string) and customer_id = '$cust_id' ";
 
 $results = mysql_query($sql,$link);
@@ -97,30 +101,29 @@ $results = mysql_query($sql,$link);
 //die();
 
 //print_r($result_string);die();
-        //$array=explode(',',$countries);
+//$array=explode(',',$countries);
+//$unnecessary =array(1,'on','on');
 
-        //$unnecessary =array(1,'on','on');
+//$result = array_diff($array,$unnecessary);
 
-        //$result = array_diff($array,$unnecessary);
+//$contries =implode(',', $result);
 
-       //$contries =implode(',', $result);
-
-        //$fields ="'" . implode ( "', '", $result ) . "'"; 
+//$fields ="'" . implode ( "', '", $result ) . "'"; 
 
 //        $sql =  "select * from  asset_id_list where field_id in($result_string) and customer_id = '$cust_id' ";
 //print_r($sql1);die();
-        //$result = mysql_query($sql, $link);
-  //      $lat = [];
+//$result = mysql_query($sql, $link);
+//      $lat = [];
 //        $long = []; 
          while($val1 = mysql_fetch_array($results))
         {
                 
-    //            $lat = $val1["asset_loc_lat"];
-     //           $long = $val1["asset_loc_long"];
+//            $lat = $val1["asset_loc_lat"];
+//           $long = $val1["asset_loc_long"];
                
                 echo "<input type='hidden' name=checkbox".$val1["asset_id"]." class='checkbox2'   value='".$val1["asset_id"] ." ' lat='".$val1["asset_loc_lat"]."' long='".$val1["asset_loc_long"]."' country_name='".$val1["country_id"]."' asset_name='".$val1["asset_name"]."'>
 			<ul class='sidebar-menu' data-widget='tree'>  
-                         <li> <a href='#'><i class='fa fa-circle-o text-green'></i><span>" .$val1["asset_name"] ."</span></a> </li>
+                         <li> <a href='javascript:void(0);' onclick=comcheck('".$val1["asset_id"] ."')><i class='fa fa-circle-o text-green'></i><span>" .$val1["asset_name"] ."</span></a> </li>
                      </ul>";
 
         }

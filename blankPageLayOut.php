@@ -42,8 +42,10 @@
     <nav class="navbar navbar-static-top">
 		<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"> <span class="sr-only">Toggle navigation</span> </a>
       <div class="navbar-custom-menu">
+	<button id="logout" class="btn btn-success">Logout</button>
         <ul class="nav navbar-nav">
          <li class="dropdown notifications-menu">
+
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-align-justify"></i>             
             </a>
@@ -151,9 +153,10 @@
                 <div id="map"></div>
 		<div class="panel-body">
 			 <div id ="mygraph"></div>
+			<!--input type="button" id="showmap" value="Back" -->
 		    </div>
               </div>
-              <div class="col-lg-12">
+              <!--div class="col-lg-12">
                 <div class="allarm-events">
                   <ul>
                     <li>
@@ -166,7 +169,7 @@
                     </li>
                   </ul>
                 </div>
-              </div>
+              </div-->
             </div>
           </div>
         </div>
@@ -363,7 +366,7 @@
 <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script> 
 <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script> 
 <script src="bower_components/chart.js/Chart.js"></script> 
-<!--script src="dist/js/demo.js"></script--> 
+<script src="dist/js/demo.js"></script> 
 <script>
 $("#checkbox1").click(function(){
 	
@@ -444,11 +447,13 @@ $("#submit_field").click(function(){
 var cheValues =$(':Checkbox:checked').map(function() {return this.value;}).get().join(',');//	alert(cheValues);return false;
 
 	$.post("ajax.php",  {'cust_id' : final_cust_id , condition_type: 3 , 'fields': cheValues}  , function(response){
+	 $("#map").show();  
+  $("#mygraph").hide();  
 		var asset_loc_lat = [];
                 var asset_loc_long = [];
                 var asset_id = [];
 		var asset_name = [];
-//		alert(response);// return false;  
+		alert(response);// return false;  
 		$("#asset_res").html(response);
 		$.each($('#mapForm').serializeArray(), function(index, value){
                     //alert($('[name="' + value.name + '"]').attr('lat') + $('[name="' + value.name + '"]').attr('long'));
@@ -460,44 +465,110 @@ var cheValues =$(':Checkbox:checked').map(function() {return this.value;}).get()
                 console.log(asset_loc_lat);
                 console.log(asset_loc_long);
                 console.log(asset_id);
-
-		callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name);
+load(asset_id,asset_loc_lat,asset_loc_long,asset_name) ;
+           
+ 
+		//callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name);
 
 	});
 	
 });
 
-function callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name){
-var conLoaded = document.getElementById('submit_field');
-google.maps.event.addDomListener(conLoaded, 'mouseout', init);
+var markers = [];
+/*
+setInterval(function () {
 
-function init(){
-		var mapOptions = {
-                    // How zoomed in you want the map to start at (always required)
-                    zoom: 5,
+var condition_type =3;
+	//var fields = $.cookie('storeAssets');
+	//alert('<?php print_r($_SESSION["question"]) ?>');
 
-                    // The latitude and longitude to center the map (always required)
-                    center: new google.maps.LatLng(20.5937, 78.9629), // New York
-					mapTypeId: google.maps.MapTypeId.ROADMAP,
-                    // How you would like to style the map. 
-                    // This is where you would paste any style found on Snazzy Maps.
-                    styles: [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"color":"#000000"},{"lightness":13}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#144b53"},{"lightness":14},{"weight":1.4}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#08304b"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#0c4152"},{"lightness":5}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#0b434f"},{"lightness":25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#0b3d51"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"transit","elementType":"all","stylers":[{"color":"#146474"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#021019"}]}]
-                };
+	var values = '<?php print_r($_SESSION["question"]) ?>';
+	
+	var cust_id = document.cookie;
+	
+	var valid_cust_id=cust_id.split(";");
+	var final_cust_id=valid_cust_id[0];
+	
+	
+		$.ajax({
+			type:'POST',
+			data:{
+				cust_id: final_cust_id,
+				condition_type : 3,
+				fields: values			
+			},
+			url:'ajax.php',
+			success:function(response){
+				//$("#asset_res").html(response);
+				var asset_loc_lat = [];
+				var asset_loc_long = [];
+				var asset_id = [];
+				var asset_name = [];
+				$.each($('#mapForm').serializeArray(), function(index, value){
+				    //alert($('[name="' + value.name + '"]').attr('lat') + $('[name="' + value.name + '"]').attr('long'));
+				    asset_loc_lat.push($('[name="' + value.name + '"]').attr('lat'));
+				    asset_loc_long.push($('[name="' + value.name + '"]').attr('long'));
+				    asset_id.push($('[name="' + value.name + '"]').val());
+				    asset_name.push($('[name="' + value.name + '"]').attr('asset_name'));
+				});
+				console.log(asset_loc_lat);
+				console.log(asset_loc_long);
+				console.log(asset_id);
+				DeleteMarkers(asset_id,asset_loc_lat,asset_loc_long,asset_name);
+				BindMarker(asset_id,asset_loc_lat,asset_loc_long,asset_name);
+				//callMapFunction(asset_id,asset_loc_lat,asset_loc_long,asset_name);
+				load(asset_id,asset_loc_lat,asset_loc_long,asset_name) ;
 
+			}
+		});
+	}
+
+    
+}, 25000);
+*/	
+function DeleteMarkers() {
+    //Loop through all the markers and remove
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+
+
+    markers = [];
+};
+
+var map = null;
+var infoWindow = null;
+
+function load(asset_id,asset_loc_lat,asset_loc_long,asset_name) {//alert(asset_id.length);
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: new google.maps.LatLng(-29.86519774, 30.98538962),
+        zoom: 15,
+	mapTypeId: google.maps.MapTypeId.HYBRID, 
+        //mapTypeId: 'terrain',
+			styles: [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"color":"#000000"},{"lightness":13}]}
+,{"featureType":"poi","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#144b53"},{"lightness":14},{"weight":1.4}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#08304b"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#0c4152"},{"lightness":5}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#0b434f"},{"lightness":25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#0b3d51"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"transit","elementType":"all","stylers":[{"color":"#146474"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#021019"}]}]
+        
+    });
+
+
+    infoWindow = new google.maps.InfoWindow;
+
+    // Change this depending on the name of your PHP file
+    BindMarker(asset_id,asset_loc_lat,asset_loc_long,asset_name);
+}
+
+
+function BindMarker(asset_id,asset_loc_lat,asset_loc_long,asset_name) {
+var bounds = new google.maps.LatLngBounds();
 locations = [];
 	for(ass_id = 0;ass_id < asset_id.length;ass_id++){
 		locations.push([asset_name[ass_id], 'undefined', 'Latitude:'+ asset_loc_lat[ass_id], 'Longitude' + asset_loc_long[ass_id],
 	'undefined', asset_loc_lat[ass_id], asset_loc_long[ass_id], 'https://mapbuildr.com/assets/img/markers/solid-pin-blue.png',asset_id[0]]);
 
 	}
+console.log(locations);
 
-	console.log(locations);
-
-	var mapElement = document.getElementById('map');
-var bounds = new google.maps.LatLngBounds();
-                // Create the Google Map using our element and options defined above
-                var map = new google.maps.Map(mapElement, mapOptions);
-		for (i = 0; i < locations.length; i++) {
+for (i = 0; i < locations.length; i++) {
 			if (locations[i][1] =='undefined'){ description ='';} else { description = locations[i][1];}
 			if (locations[i][2] =='undefined'){ telephone ='';} else { telephone = locations[i][2];}
 			if (locations[i][3] =='undefined'){ email ='';} else { email = locations[i][3];}
@@ -513,51 +584,90 @@ var bounds = new google.maps.LatLngBounds();
 				desc: description,
 				tel: telephone,
 				email: email,
+
 				web: web,
+
 				asset_id:asset_id
+
 			});
+				markers.push(marker);
 				link = '';      
 				bounds.extend(marker.position);      
 				bindInfoWindow(marker, map, locations[i][0], description, telephone, email, web, link,asset_id);
-		}
-		map.fitBounds(bounds);
-function bindInfoWindow(marker, map, title, desc, telephone, email, web, link,asset_id) {
 				
+
+		}
+map.fitBounds(bounds);
+
+}
+
+
+function bindInfoWindow(marker, map, title, desc, telephone, email, web, link,asset_id) {
+
+				
+
 	var infoWindowVisible = (function () {
+
 		  var currentlyVisible = false;
+
 		  return function (visible) {
+
 			  if (visible !== undefined) {
+
 				  currentlyVisible = visible;
+
 			  }
+
 			  return currentlyVisible;
+
 		   };
+
 	   }());
+
 	   iw = new google.maps.InfoWindow();
+
 	   google.maps.event.addListener(marker, 'click', function() {
+
 		   if (infoWindowVisible()) {
+
 			   iw.close();
+
 			   infoWindowVisible(false);
+
 		   } else {
+
 			   var html= "<div style='color:#000;background-color:#fff;padding:5px;width:150px;'><h4>"+title+"</h4><p>"+desc+"<p><p>"+telephone+"<p>"+email+"<br><a href='javascript:void(0);' onclick='comcheck( " + asset_id + " )'>Go To...</a></div>";
+
 			   iw = new google.maps.InfoWindow({content:html});
+
 			   iw.open(map,marker);
+
 			   infoWindowVisible(true);
+
 			   
+
 		   }
+
 		});
+
 			
+
 	google.maps.event.addListener(iw, 'closeclick', function () {
+
 		infoWindowVisible(false);
+
 	});
 
- 	}
-}
 
-}
+
+ 	}
+
+function doNothing() { }
 
 function comcheck(asset_id){
 //alert(asset_id);
-
+$("#map").hide();  
+  $("#mygraph").show(); 
  $.getJSON("linegraph.php", { id: asset_id }, function(json) {
                 var chart;
                  $(document).ready(function(){
@@ -615,7 +725,15 @@ function comcheck(asset_id){
 }
 
 </script>
+<script>
+$("#showmap").click(function(){
+    $("#map").show();  
+    $("#mygraph").hide();
+}); 
 
-
+$("#logout").click(function(){
+	window.location.href = "logout.php";
+});
+</script>
 </body>
 </html>

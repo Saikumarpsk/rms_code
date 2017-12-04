@@ -1,7 +1,7 @@
 <?php
 
     include './db_check.php';
-	
+	//print_r($_SESSION['question']);die();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,8 +40,9 @@
       </div>
       <div class="col-xs-0 col-sm-5 col-md-6 col-lg-6 ">
         <h1 class="logo-txt hidden-xs "> Remote Monitoring & Surveillance System </h1>
+	
       </div>
-      <div class="col-xs-3 col-sm-4 col-md-3 col-lg-3  "> </div>
+      <div class="col-xs-3 col-sm-4 col-md-3 col-lg-3  "></div>
     </div>
   </nav>
 </header>
