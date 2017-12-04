@@ -453,7 +453,7 @@ var cheValues =$(':Checkbox:checked').map(function() {return this.value;}).get()
                 var asset_loc_long = [];
                 var asset_id = [];
 		var asset_name = [];
-		alert(response);// return false;  
+		//alert(response);// return false;  
 		$("#asset_res").html(response);
 		$.each($('#mapForm').serializeArray(), function(index, value){
                     //alert($('[name="' + value.name + '"]').attr('lat') + $('[name="' + value.name + '"]').attr('long'));
