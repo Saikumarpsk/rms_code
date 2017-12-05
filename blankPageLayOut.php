@@ -92,19 +92,7 @@
   </header>
   <aside class="main-sidebar">
     <section class="sidebar">
-      <div class="user-panel">
-        <div class="pull-left image">
-          <div class="main-nav">
-            <ul class="">
-              <li><a href="#" data-toggle="modal" data-container="body" title="Assets" data-target="#product_view"><img src="dist/img/li-icon1.png" class="img-circle" alt="User Image"></a> </li>
-              <li><a href="#" data-toggle="modal" data-container="body" title="Locations" data-target="#product_view2"><img src="dist/img/li-icon2.png" class="img-circle" alt="User Image"></a> </li>
-              <li><a href="#" data-toggle="modal" data-container="body" title="Filelds" data-target="#product_view3"><img src="dist/img/li-icon3.png" class="img-circle" alt="User Image"></a> </li>
-              <li><a href="#" data-toggle="modal" data-container="body" title="Borewells" data-target="#product_view4"><img src="dist/img/li-icon4.png" class="img-circle" alt="User Image"></a> </li>
-              <li class="nav-divider"> </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <?php include('sideMenu.php');?>
       <div class="nav-divider"></div>
       <form action="#" method="get" class="sidebar-form">
         <div class="input-group">
@@ -151,10 +139,7 @@
             <div class="row">
               <div class="col-lg-12">
                 <div id="map"></div>
-		<div class="panel-body">
-			 <div id ="mygraph"></div>
-			<!--input type="button" id="showmap" value="Back" -->
-		    </div>
+		
               </div>
                 
                   <?php
@@ -194,88 +179,8 @@
             
         </div>
       </div>
-
-	<div class="modal fade product_view" id="product_view">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header"> <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-            <h3 class="modal-title">Customers</h3>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-             
-            <div class="col-md-4">
-			<?php
-				//print_r($cus_result);die;
-			while($val1 = mysql_fetch_array($cus_result))
-			{
-				
-				
-				?>
-		      
-                <div>
-                  
-				  <a href="#product_view2" data-toggle="modal" data-dismiss="modal">  <input type="checkbox" name="checkbox" id="checkbox1"  value="<?=$val1["customer_id"]?>" ></a>
-                  <label for="checkbox1"><?=isset($val1["cust_name_parent"])?$val1["cust_name_parent"]:'None'?></label>
-				  
-                </div>
-			<?php }
-				?>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<?php include('popup.php');?>
 	
-	<div class="modal fade product_view" id="product_view2">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header"> <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-            <h3 class="modal-title">Countries</h3>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-             
-            <div class="col-md-4">
-                <div id="company_res">
-                  <!--input type="checkbox" name="checkbox" id="checkbox1" checked="">
-                  <label for="checkbox1">First Option default 2</label-->
-                </div>
-				 <a href="#product_view3" data-toggle="modal" data-dismiss="modal"><input type="button" id="submit_company"  value="submit"></a>
-               
-				
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-	
-	<div class="modal fade product_view" id="product_view3">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header"> <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-            <h3 class="modal-title">Fields</h3>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-             
-            <div class="col-md-4">
-                <div id="fields_res">
-                  <!--input type="checkbox" name="checkbox" id="checkbox1" checked="">
-                  <label for="checkbox1">First Option default 3</label-->
-                </div>
-              
-			   <a href="" data-toggle="modal" data-dismiss="modal">
-<input type="button" id="submit_field"  value="submit"></a> 
-				
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     </section>
   </div>
@@ -386,6 +291,7 @@ $("#submit_company").click(function(){
 <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCYVYQPAkMd4xAzjUq5UnBIfatKdYE0CCg&extension=.js'></script> 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="bower_components/jquery-knob/js/jquery.knob.js"></script> 
 <script>
     
 $("#submit_field").click(function(){
@@ -418,6 +324,7 @@ var cheValues =$(':Checkbox:checked').map(function() {return this.value;}).get()
                     asset_loc_long.push($('[name="' + value.name + '"]').attr('long'));
                     asset_id.push($('[name="' + value.name + '"]').val());
 		    asset_name.push($('[name="' + value.name + '"]').attr('asset_name'));
+	
                 });
                 console.log(asset_loc_lat);
                 console.log(asset_loc_long);
@@ -520,7 +427,7 @@ var bounds = new google.maps.LatLngBounds();
 locations = [];
 	for(ass_id = 0;ass_id < asset_id.length;ass_id++){
 		locations.push([asset_name[ass_id], 'undefined', 'Latitude:'+ asset_loc_lat[ass_id], 'Longitude' + asset_loc_long[ass_id],
-	'undefined', asset_loc_lat[ass_id], asset_loc_long[ass_id], 'https://mapbuildr.com/assets/img/markers/solid-pin-blue.png',asset_id[0]]);
+	'undefined', asset_loc_lat[ass_id], asset_loc_long[ass_id], 'images/marker-icon-green.png',asset_id[0]]);
 
 	}
 console.log(locations);
@@ -593,7 +500,7 @@ function bindInfoWindow(marker, map, title, desc, telephone, email, web, link,as
 
 		   } else {
 
-			   var html= "<div style='color:#000;background-color:#fff;padding:5px;width:150px;'><h4>"+title+"</h4><p>"+desc+"<p><p>"+telephone+"<p>"+email+"<br><a href='javascript:void(0);' onclick='comcheck( " + asset_id + " )'>Go To...</a></div>";
+			   var html= "<div style='color:#000;background-color:#fff;padding:5px;width:150px;'><h4>"+title+"</h4><img class='image-iconalign' src='images/popup-icon.png'><p>"+desc+"<p><p>"+telephone+"<p>"+email+"<br><a href='javascript:void(0);' onclick='comcheck( " + asset_id + " )'>Go To...</a></div>";
 
 			   iw = new google.maps.InfoWindow({content:html});
 
@@ -622,63 +529,12 @@ function bindInfoWindow(marker, map, title, desc, telephone, email, web, link,as
 function doNothing() { }
 
 function comcheck(asset_id){
-//alert(asset_id);
-$("#map").hide();  
-  $("#mygraph").show(); 
- $.getJSON("linegraph.php", { id: asset_id }, function(json) {
-                var chart;
-                 $(document).ready(function(){
-                
-                    chart = new Highcharts.Chart({
-                        chart: {
-                            renderTo: 'mygraph',
-                            type: 'line'
-                            
-                        },
-                        title: {
-                            text: 'Line Graph'
-                            
-                        },
-                        subtitle: {
-                            text: 'Frequency'
-                        
-                        },
-                        xAxis: {
-                            categories: json[0]['hour'],
-                             title: {
-                                text: 'Time(24 hrs Format)'
-                            },
-                        },
-                        yAxis: {
-                            title: {
-                                text: 'Frequency'
-                            },
-                            plotLines: [{
-                                value: 0,
-                                width: 1,
-                                color: '#808080'
-                            }]
-                        },
-                        tooltip: {
-                            formatter: function() {
-                                    return '<b>'+ this.series.name +'</b><br/>'+
-                                    this.x +': '+ this.y;
-                            }
-                        },
-                        legend: {
-                            layout: 'vertical',
-                            align: 'right',
-                            verticalAlign: 'top',
-                            x: -10,
-                            y: 120,
-                            borderWidth: 0
-                        },
-                        series: json
-                    });
-                });
-            
-            });
 
+//var values = '<?php print_r($_SESSION["question"]) ?>';
+//alert(values);
+//return false;
+//alert(asset_id);
+window.location.href = "charts.php";
 }
 
 </script>
