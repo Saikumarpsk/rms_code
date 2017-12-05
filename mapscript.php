@@ -13,21 +13,22 @@ function comcheck(asset_id){
 //alert("cls-active"+ " " +asset_id);
 //$("cls-active"+asset_id).addClass("active");
 $.getJSON("linegraph.php", { id: asset_id }, function(json) {
-                var chart;
+               var chart;
                  $(document).ready(function(){
                 
-                    chart = new Highcharts.Chart({
+                    chart = new Highcharts.Chart('container',{
+                      
                         chart: {
                             renderTo: 'mygraph',
-                            type: 'line'
+                            type: 'spline'
                             
                         },
                         title: {
-                            text: 'Line Graph'
+                            text: json[0]['asset_name']
                             
                         },
                         subtitle: {
-                            text: 'Frequency'
+                            text: ''
                         
                         },
                         xAxis: {
@@ -36,20 +37,27 @@ $.getJSON("linegraph.php", { id: asset_id }, function(json) {
                                 text: 'Time(24 hrs Format)'
                             },
                         },
-                        yAxis: {
+                         yAxis: {
                             title: {
-                                text: 'Frequency'
+                                text: ''
                             },
-                            plotLines: [{
-                                value: 0,
-                                width: 1,
-                                color: '#808080'
-                            }]
+                            labels: {
+                                formatter: function () {
+                                    return this.value + '';
+                                }
+                            }
                         },
                         tooltip: {
-                            formatter: function() {
-                                    return '<b>'+ this.series.name +'</b><br/>'+
-                                    this.x +': '+ this.y;
+                            crosshairs: true,
+                            shared: true
+                        },
+                        plotOptions: {
+                            spline: {
+                                marker: {
+                                    radius: 4,
+                                    lineColor: '#666666',
+                                    lineWidth: 1
+                                }
                             }
                         },
                         legend: {
@@ -65,6 +73,7 @@ $.getJSON("linegraph.php", { id: asset_id }, function(json) {
                 });
             
             });
+
 
 
 }

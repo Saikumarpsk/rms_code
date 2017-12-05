@@ -18,6 +18,11 @@ header('Content-type: application/json');
 		$rows['data'][] = $tmp['tag_drive_freq'];
 		$rows['hour'][] = $tmp['hr'];
 	    }
+		$qry = mysql_query("SELECT asset_name from  asset_id_list where asset_id = '$asset_id'" ,$link ); 
+             while($tmp1 = mysql_fetch_array($qry)) {
+		$rows['asset_name'] = $tmp1['asset_name'];
+		
+	    }
   }
 $result = array();
 array_push($result,$rows);

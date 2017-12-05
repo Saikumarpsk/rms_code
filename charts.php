@@ -114,6 +114,12 @@ include './db_check.php';
 	</form>
   </section>
 </aside>
+
+<?php 
+$totala = "select * from assets_monitor_data as A,assets_alarams as B," . "asset_id_list as C where " . "A.Assets_id=C.asset_id and " . "B.asset_id=asset_short_name and " . "A.user_id = 1 and " . "B.asset_id ='A329'" . " order by A.id desc limit 1 "; $resulttotala = mysql_query($totala, $link); 
+$fetresulttotala = mysql_fetch_array($resulttotala); 
+?>
+
 <div class="content-wrapper">
 <section class="content">
 <div class="row">
@@ -124,11 +130,56 @@ include './db_check.php';
         <div class="test col-md-9">
           <div class="box">
 <div id="map"></div>
-		<div class="panel-body">
-			 <div id ="mygraph"></div>
-			<!--input type="button" id="showmap" value="Back" -->
-		    </div>
+		<!--<div class="panel-body">
+			
+			<input type="button" id="showmap" value="Back">
+		    </div>-->
+	 <div id ="mygraph"></div>
            </div>
+	 <div class="box">
+           <div class="box-body"></div>
+            <div id="container" style="min-width: 100%; height:250px; margin: 0 auto"></div>
+            <div class="graphchat">
+              <div class="form-group">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox">
+                    Vibration </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox">
+                    Intake Pressure </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox">
+                    Discharge Pressure </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox">
+                    Input Voltage </label>
+                </div>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-3"> </div>
+              <div class="col-xs-3">
+                <div class="col-xs-3"> <span class="graphchat-datetext">From &nbsp;</span> </div>
+                <div class="col-xs-9">
+                  <input type="text" class="form-control graphchat-datefield" placeholder="12-12-2017">
+                </div>
+              </div>
+              <div class="col-xs-3">
+                <div class="col-xs-1"> <span class="graphchat-datetext">To &nbsp;</span></div>
+                <div class="col-xs-9">
+                  <input type="text" class="form-control graphchat-datefield" placeholder="12-12-2017">
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="box">
             <div class="box-body"></div>
             <div id="container2" style="min-width: 310px; height:250px; margin: 0 auto"></div>
@@ -178,7 +229,7 @@ include './db_check.php';
               <div class="small-box bg-aqua text-center temparature_min">
                 <div class="form-group">
                   <select class="form-control">
-                    <option>Pressure</option>
+                    <option><h5>Pressure</h5></option>
                     <option>option 2</option>
                     <option>option 3</option>
                     <option>option 4</option>
@@ -186,7 +237,7 @@ include './db_check.php';
                   </select>
                 </div>
                 <div class="inner knob-pad">
-                  <input type="text" class="knob text-white" value="25%" data-width="90" data-height="90" data-fgColor="#3c8dbc">
+                  <input type="text" class="knob text-white" value="<?php echo $fetresulttotala['Motor_Temperature'].'%'; ?>" data-width="90" data-height="90" data-fgColor="#3c8dbc">
                 </div>
               </div>
             </div>
@@ -194,7 +245,7 @@ include './db_check.php';
               <div class="small-box bg-aqua text-center temparature_min">
                 <div class="form-group">
                   <select class="form-control">
-                    <option>Volume</option>
+                    <option><h5>Volume</h5></option>
                     <option>option 2</option>
                     <option>option 3</option>
                     <option>option 4</option>
@@ -202,7 +253,7 @@ include './db_check.php';
                   </select>
                 </div>
                 <div class="inner knob-pad">
-                  <input class="knob" data-width="90" data-height="90" data-angleOffset=-125 data-angleArc=250 data-fgColor="#66EE66" data-rotation="clockwise" value="35">
+                  <input class="knob" data-width="90" data-height="90" data-angleOffset=-125 data-angleArc=250 data-fgColor="#66EE66" data-rotation="clockwise" value="<?php echo $fetresulttotala['Discharge_Pressure']; ?>">
                 </div>
               </div>
             </div>
@@ -210,7 +261,7 @@ include './db_check.php';
               <div class="small-box bg-aqua temparature_min">
                 <div class="form-group">
                   <select class="form-control">
-                    <option>Temparature</option>
+                    <option><h5>Temparature</h5></option>
                     <option>option 2</option>
                     <option>option 3</option>
                     <option>option 4</option>
@@ -224,7 +275,10 @@ include './db_check.php';
                   </select>
                 </div>
                 <div class="temparature"> <i class="fa fa-thermometer-empty" > </i>
-                  <label> 50 C</label>
+                  <label> <?php echo $fetresulttotala['Discharge_Temperature']; ?>
+
+
+ C</label>
                 </div>
               </div>
             </div>
@@ -233,8 +287,8 @@ include './db_check.php';
                 <h5>Messages</h5>
                 <div class="allarm_latest_info">
                   <ul>
-                    <li> Last Alert Messages sent by Call Center / Engineers</li>
-                    <li> Last Alert Messages</li>
+                    <li><?php echo $fetresulttotala['Message']; ?></li>
+                  
                   </ul>
                 </div>
               </div>
@@ -255,32 +309,33 @@ include './db_check.php';
           <h3> Asset Status</h3>
           <div class="allam-total">
             <ul class="">
-              <li><i class="fa fa-circle text-aqua"></i> <span> Motor Temp</span> <span class="pull-right-container"> <span class="label label-primary pull-right">20</span> </span></li>
-              <li><i class="fa fa-circle text-orange"></i> <span> Discharge</span> <span class="pull-right-container"> <span class="label label-primary pull-right">10</span> </span></li>
-              <li><i class="fa fa-circle text-purple"></i> <span> Intake Pres</span> <span class="pull-right-container"> <span class="label label-primary pull-right">40</span> </span></li>
-              <li><i class="fa fa-circle text-blue"></i> <span> Other</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
+              <li><i class="fa fa-circle text-aqua"></i> <span> Current Run</span> <span class="pull-right-container"> <span class="label label-primary pull-right">20</span> </span></li>
+              <li><i class="fa fa-circle text-orange"></i> <span>Asset Life</span> <span class="pull-right-container"> <span class="label label-primary pull-right">10</span> </span></li>
+              <li><i class="fa fa-circle text-purple"></i> <span>Last Downtime</span> <span class="pull-right-container"> <span class="label label-primary pull-right">40</span> </span></li>
+              <li><i class="fa fa-circle text-blue"></i> <span>Total Downtime</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
             </ul>
           </div>
           <br>
           <div class="row" >
             <div class="col-sm-4">
               <div class="pump-meter">
-                <div class="inner knob-pad">
-                  <input class="knob" data-width="60" data-height="60" data-angleOffset=-125 data-angleArc=250 data-fgColor="#66EE66" data-rotation="clockwise" value="55">
+			<div class="inner knob-pad">
+                  <input class="knob" data-width="60" data-height="60" data-angleOffset=-125 data-angleArc=250 data-fgColor="#66EE66" data-rotation="clockwise" value="<?php echo $fetresulttotala['Motor_Temperature']; ?>">
                 </div>
                 <div class="inner knob-pad">
-                  <input class="knob" data-width="60" data-height="60" data-angleOffset=-125 data-angleArc=250 data-fgColor="#66EE66" data-rotation="clockwise" value="45">
+                  <input class="knob" data-width="60" data-height="60" data-angleOffset=-125 data-angleArc=250 data-fgColor="#66EE66" data-rotation="clockwise" value="<?php echo $fetresulttotala['Discharge_Pressure']; ?>">
                 </div>
                 <div class="inner knob-pad">
-                  <input class="knob" data-width="60" data-height="60" data-angleOffset=-125 data-angleArc=250 data-fgColor="#66EE66" data-rotation="clockwise" value="35">
+                  <input class="knob" data-width="60" data-height="60" data-angleOffset=-125 data-angleArc=250 data-fgColor="#66EE66" data-rotation="clockwise" value="<?php echo $fetresulttotala['Discharge_Temperature']; ?>">
                 </div>
                 <div class="inner knob-pad">
-                  <input class="knob" data-width="60" data-height="60" data-angleOffset=-125 data-angleArc=250 data-fgColor="#66EE66" data-rotation="clockwise" value="25">
+                  <input class="knob" data-width="60" data-height="60" data-angleOffset=-125 data-angleArc=250 data-fgColor="#66EE66" data-rotation="clockwise" value="<?php echo $fetresulttotala['Intake_Pressure']; ?>">
                 </div>
                 <div class="inner knob-pad">
-                  <input class="knob" data-width="60" data-height="60" data-angleOffset=-125 data-angleArc=250 data-fgColor="#66EE66" data-rotation="clockwise" value="15">
+                  <input class="knob" data-width="60" data-height="60" data-angleOffset=-125 data-angleArc=250 data-fgColor="#66EE66" data-rotation="clockwise" value="<?php echo $fetresulttotala['Motor_Temperature']; ?>">
                 </div>
-              </div>
+
+                </div>
             </div>
             <div class="col-sm-8">
               <div class="pump">
@@ -298,86 +353,8 @@ include './db_check.php';
   <footer class="main-footer"> <strong>Copyright &copy; 2017 <a href="#">RMSS</a>.</strong> All rights reserved. </footer>
   <aside class="control-sidebar control-sidebar-dark">
     <div class="tab-content">
-      <h3 class="control-sidebar-heading" style="padding-top: 0px; margin-top: 0px;">Allarm Total = 90</h3>
-      <div class="tab-pane active" id="control-sidebar-settings-tab">
-        <div class="allam-total">
-          <ul class="">
-            <li><i class="fa fa-circle text-aqua"></i> <span> Motor Temp</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-            <li><i class="fa fa-circle text-orange"></i> <span> Discharge</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-            <li><i class="fa fa-circle text-purple"></i> <span> Intake Pres</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-            <li><i class="fa fa-circle text-blue"></i> <span> Other</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-          </ul>
-        </div>
-        <div class="allarm-notification">
-          <h3 class="control-sidebar-heading">Alarm Notifications</h3>
-          <div class="table-scroll">
-            <div class="box-body table-responsive no-padding">
-              <table class="table_custom">
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="table-bottom-icons">
-            <ul>
-              <li> <i class="fa fa-dot-circle-o"></i></li>
-              <li> <i class="fa fa-star-o"></i></li>
-              <li> <i class="fa fa-ban"></i></li>
-            </ul>
-          </div>
-        </div>
-        <div class="clearfix"></div>
-        <div class="">
-          <h3 class="control-sidebar-heading">Alarm Status</h3>
-          <div class="allam-status">
-            <ul class="">
-              <li><i class="fa fa-circle text-red"></i> <span> Failed </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-              <li><i class="fa fa-circle text-yellow"></i> <span> Stopped </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-              <li><i class="fa fa-circle text-green"></i> <span> Running</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-              <li><i class="fa fa-circle text-red"></i> <span> Failed &lt; TRL </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-              <li><i class="fa fa-circle text-orange"></i> <span> WO Opt </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-              <li><i class="fa fa-circle text-lime"></i> <span> WO Installation </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-              <li><i class="fa fa-circle text-aqua"></i> <span> WO Pull </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+
+	</div>
   </aside>
   <div class="control-sidebar-bg"></div>
 </div>
@@ -389,7 +366,7 @@ include './db_check.php';
 <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script> 
 <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script> 
 <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script> 
-<script src="bower_components/Chart.js"></script> 
+<!--script src="bower_components/Chart.js"></script--> 
 <script src="bower_components/jquery-knob/js/jquery.knob.js"></script> 
 <script src="bower_components/chart.js/highcharts.js"></script> 
 <script src="bower_components/chart.js/data.js"></script> 
@@ -432,21 +409,22 @@ $(function(){
 
 	var asset_id = '<?php echo $_GET["asset_id"] ?>';//alert(asset_id);
 	$.getJSON("linegraph.php", { id: asset_id }, function(json) {
-                var chart;
+               var chart;
                  $(document).ready(function(){
                 
-                    chart = new Highcharts.Chart({
+                    chart = new Highcharts.Chart('container',{
+                      
                         chart: {
                             renderTo: 'mygraph',
-                            type: 'line'
+                            type: 'spline'
                             
                         },
                         title: {
-                            text: 'Line Graph'
+                            text: json[0]['asset_name']
                             
                         },
                         subtitle: {
-                            text: 'Frequency'
+                            text: ''
                         
                         },
                         xAxis: {
@@ -455,20 +433,27 @@ $(function(){
                                 text: 'Time(24 hrs Format)'
                             },
                         },
-                        yAxis: {
+                         yAxis: {
                             title: {
-                                text: 'Frequency'
+                                text: ''
                             },
-                            plotLines: [{
-                                value: 0,
-                                width: 1,
-                                color: '#808080'
-                            }]
+                            labels: {
+                                formatter: function () {
+                                    return this.value + '';
+                                }
+                            }
                         },
                         tooltip: {
-                            formatter: function() {
-                                    return '<b>'+ this.series.name +'</b><br/>'+
-                                    this.x +': '+ this.y;
+                            crosshairs: true,
+                            shared: true
+                        },
+                        plotOptions: {
+                            spline: {
+                                marker: {
+                                    radius: 4,
+                                    lineColor: '#666666',
+                                    lineWidth: 1
+                                }
                             }
                         },
                         legend: {
@@ -484,6 +469,7 @@ $(function(){
                 });
             
             });
+
 
 });
  
@@ -587,6 +573,22 @@ $(".knob").knob({
  $('.thermometer-noconfig').thermometer();
 	
 </script> 
+<script> /*for alram functionality 
+    $(function(){
+	var asset_id = '<?php echo $_GET["asset_id"] ?>';
+	//alert(asset_id);
+      function loadNums()
+      { //alert(asset_id);
+	
+	//alert(asset_id);
+        $('.tab-content').load('autoalarams-inner.php?asset_id='+ asset_id);
+        setTimeout(loadNums, 30000); // makes it reload every 10 sec
+      }
+      loadNums(); // start the process...
+    });
+     /*for alram functionality */
+ </script>
+
 <script>
 	  $('#hide').click(function(){
 		  
