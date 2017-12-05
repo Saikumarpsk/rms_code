@@ -34,7 +34,7 @@ body {
 	position: relative
 }
 .layout-boxed {
-	background: url('../img/boxed-bg.jpg') repeat fixed
+	background: url('../img/boxed-bg.jpg') repeat fixed;     background-size: cover;
 }
 .content-wrapper, .right-side, .main-footer {
 	-webkit-transition: -webkit-transform .3s ease-in-out, margin .3s ease-in-out;
