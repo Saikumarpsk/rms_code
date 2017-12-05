@@ -335,4 +335,7 @@ pre {
     margin: 9px 0 0 !important;
     font-size: 20px!important;
 }
-    
+    .allarm_latest_info ul {
+    margin: 0 !important;
+    padding: 0 0 0 10px!important;
+}

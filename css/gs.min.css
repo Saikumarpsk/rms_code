@@ -34,7 +34,7 @@ body {
 	position: relative
 }
 .layout-boxed {
-	background: url('../img/boxed-bg.jpg') repeat fixed;     background-size: cover;
+	background: url('../img/boxed-bg.jpg') repeat fixed; 
 }
 .content-wrapper, .right-side, .main-footer {
 	-webkit-transition: -webkit-transform .3s ease-in-out, margin .3s ease-in-out;
@@ -2826,7 +2826,7 @@ table.text-center, table.text-center td, table.text-center th {
 	color: #fff;
 }
 .login-page, .register-page {
-	background: url(../images/bg-img.jpg) no-repeat center top fixed;
+	background: url(../images/bg-img.jpg) no-repeat center top fixed;background-size: cover;
 }
 .login-box, .register-box {
 	width: 360px;
