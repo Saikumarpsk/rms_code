@@ -26,7 +26,7 @@ include './db_check.php';
 <header class="main-header"> <a href="home.php" class="logo"> <span class="logo-mini"><b>R</b>MSS</span> <span class="logo-lg"><b>RMSS </b> </span> </a>
   <nav class="navbar navbar-static-top"> <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"> <span class="sr-only">Toggle navigation</span> </a>
     <div class="navbar-custom-menu">
-	<button id="logout" class="btn btn-success">Logout</button>
+	<button id="logout" class="logout-btn"><i class="fa fa-power-off"></i></button>
       <ul class="nav navbar-nav">
         <li class="dropdown notifications-menu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-align-justify"></i> </a>
           <ul class="dropdown-menu">
@@ -49,7 +49,20 @@ include './db_check.php';
 </header>
 <aside class="main-sidebar">
   <section class="sidebar">
-    <?php include('sideMenu.php');?>
+   
+<div class="user-panel">
+        <div class="pull-left image">
+          <div class="main-nav">
+            <ul class="">
+              <li><a href="blankPageLayOut.php" data-toggle="" data-container="body" title="Assets" data-target="#product_view"><img src="dist/img/li-icon1.png" class="img-circle" alt="User Image"></a> </li>
+              <li><a href="#" data-toggle="modal" data-container="body" title="Locations" data-target="#product_view2"><img src="dist/img/li-icon2.png" class="img-circle" alt="User Image"></a> </li>
+              <li><a href="#" data-toggle="modal" data-container="body" title="Filelds" data-target="#product_view3"><img src="dist/img/li-icon3.png" class="img-circle" alt="User Image"></a> </li>
+              <li><a href="#" data-toggle="modal" data-container="body" title="Borewells" data-target="#product_view4"><img src="dist/img/li-icon4.png" class="img-circle" alt="User Image"></a> </li>
+              <li class="nav-divider"> </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     <div class="nav-divider"></div>
     <form action="#" method="get" class="sidebar-form">
       <div class="input-group">
@@ -104,13 +117,13 @@ include './db_check.php';
 <div class="content-wrapper">
 <section class="content">
 <div class="row">
-  <button id="hide">HIDE</button>
-  <button id="show">SHOW</button>
+  <!--<button id="hide">HIDE</button>
+  <button id="show">SHOW</button>-->
     <div class="row">
       <div class="col-lg-12">
         <div class="test col-md-9">
           <div class="box">
-
+<div id="map"></div>
 		<div class="panel-body">
 			 <div id ="mygraph"></div>
 			<!--input type="button" id="showmap" value="Back" -->
@@ -416,7 +429,9 @@ console.log(values);
 
 <script>
 $(function(){
-	$.getJSON("linegraph.php", { id: 1 }, function(json) {
+
+	var asset_id = '<?php echo $_GET["asset_id"] ?>';//alert(asset_id);
+	$.getJSON("linegraph.php", { id: asset_id }, function(json) {
                 var chart;
                  $(document).ready(function(){
                 
@@ -587,7 +602,9 @@ $(".knob").knob({
 		$(".remove").show();
 		  $('#hide').show();
 	  });
-	
+	$("#logout").click(function(){
+	window.location.href = "logout.php";
+});
 	  </script>
 </body>
 </html>

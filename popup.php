@@ -1,5 +1,5 @@
 <?php 
-include './db_check.php';
+
     
     include './db_connect.php';
 //print_r($_SESSION);die();

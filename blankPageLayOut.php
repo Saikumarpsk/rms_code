@@ -35,6 +35,10 @@
 <link rel="stylesheet" href="dist/css/style.css">
 <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+<style>
+html{ overflow-y: hidden; }
+</style>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -42,7 +46,7 @@
     <nav class="navbar navbar-static-top">
 		<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"> <span class="sr-only">Toggle navigation</span> </a>
       <div class="navbar-custom-menu">
-	<button id="logout" class="btn btn-success">Logout</button>
+	<button id="logout" class="logout-btn"><i class="fa fa-power-off"></i></button>
         <ul class="nav navbar-nav">
          <li class="dropdown notifications-menu">
 
@@ -450,8 +454,11 @@ function load(asset_id,asset_loc_lat,asset_loc_long,asset_name) {//alert(asset_i
     map = new google.maps.Map(document.getElementById("map"), {
         center: new google.maps.LatLng(-29.86519774, 30.98538962),
         zoom: 15,
-	mapTypeId: google.maps.MapTypeId.HYBRID, 
-        //mapTypeId: 'terrain',
+	streetViewControl: false,
+	//mapTypeId: google.maps.MapTypeId.HYBRID, 
+//        mapTypeId: 'terrain',
+	mapTypeId: google.maps.MapTypeId.ROADMAP,
+	panControl: false,
 			styles: [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"color":"#000000"},{"lightness":13}]}
 ,{"featureType":"poi","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#144b53"},{"lightness":14},{"weight":1.4}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#08304b"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#0c4152"},{"lightness":5}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#0b434f"},{"lightness":25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#0b3d51"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"transit","elementType":"all","stylers":[{"color":"#146474"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#021019"}]}]
         
@@ -470,7 +477,7 @@ var bounds = new google.maps.LatLngBounds();
 locations = [];
 	for(ass_id = 0;ass_id < asset_id.length;ass_id++){
 		locations.push([asset_name[ass_id], 'undefined', 'Latitude:'+ asset_loc_lat[ass_id], 'Longitude' + asset_loc_long[ass_id],
-	'undefined', asset_loc_lat[ass_id], asset_loc_long[ass_id], 'images/marker-icon-green.png',asset_id[0]]);
+	'undefined', asset_loc_lat[ass_id], asset_loc_long[ass_id], 'images/marker-icon-green.png',asset_id[ass_id]]);
 
 	}
 console.log(locations);
@@ -543,7 +550,7 @@ function bindInfoWindow(marker, map, title, desc, telephone, email, web, link,as
 
 		   } else {
 
-			   var html= "<div style='color:#000;background-color:#fff;padding:5px;width:150px;'><h4>"+title+"</h4><img class='image-iconalign' src='images/popup-icon.png'><p>"+desc+"<p><p>"+telephone+"<p>"+email+"<br><a href='javascript:void(0);' onclick='comcheck( " + asset_id + " )'>Go To...</a></div>";
+			   var html= "<div style='color:#000;background-color:#fff;padding:5px;width:150px;'><h4>"+title+"</h4><img class='image-iconalign' src='images/popup-icon.png'><p>"+desc+"<p><p>"+telephone+"<p>"+email+"<br><a href='javascript:void(0);' onclick='comcheck( " + asset_id + " )'><h4>Details</h4></a></div>";
 
 			   iw = new google.maps.InfoWindow({content:html});
 
@@ -577,7 +584,7 @@ function comcheck(asset_id){
 //alert(values);
 //return false;
 //alert(asset_id);
-window.location.href = "charts.php";
+window.location.href = "charts.php?asset_id="+asset_id;
 }
 
 </script>
