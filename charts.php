@@ -573,7 +573,7 @@ $(".knob").knob({
  $('.thermometer-noconfig').thermometer();
 	
 </script> 
-<script> /*for alram functionality 
+<script> /*for alram functionality */
     $(function(){
 	var asset_id = '<?php echo $_GET["asset_id"] ?>';
 	//alert(asset_id);
@@ -581,7 +581,7 @@ $(".knob").knob({
       { //alert(asset_id);
 	
 	//alert(asset_id);
-        $('.tab-content').load('autoalarams-inner.php?asset_id='+ asset_id);
+        $('.tab-content').load('autoalarams-inner.php?asset_id=5');
         setTimeout(loadNums, 30000); // makes it reload every 10 sec
       }
       loadNums(); // start the process...

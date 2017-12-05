@@ -4,7 +4,7 @@
 
 	include './db_check.php';
         
-        $asset_id =$_GET['asset_id'];
+        $asset_id = 5;
 
             $shortID =  "select asset_short_name as SID from asset_id_list where asset_id  = '$asset_id'"; 
              $resultshortID = mysql_query($shortID, $link);
