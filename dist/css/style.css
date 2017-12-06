@@ -140,7 +140,7 @@
 	padding: 0 !important;
 }
 .allarm-events {
-	background: #222d32;
+	background: #3c8dbc;
 	color: #fff;
 	height: 40px;
 }
@@ -154,7 +154,7 @@
 	display: inline-block;
 }
 .allarm-events ul li:first-child {
-	background: #3c8dbc;
+	background: none;
 	width: 10%;
 	padding: 10px;
 	color: white;

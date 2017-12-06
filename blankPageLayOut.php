@@ -35,9 +35,6 @@
 <link rel="stylesheet" href="dist/css/style.css">
 <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-<style>
-html{ overflow-y: hidden; }
-</style>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -106,6 +103,7 @@ html{ overflow-y: hidden; }
           </span> </div>
       </form>
 	<form id="mapForm">
+	<div id = "checkDiv"></div>
 	<div class="asset-list"   id="asset_res">
 		
 	</div>
@@ -145,22 +143,42 @@ html{ overflow-y: hidden; }
                 <div id="map"></div>
 		
               </div>
-              <!--div class="col-lg-12">
+                
+                  <?php
+                 
+                 $scrollingalaram =  "select * from assets_alarams where user_id = 1 order by id desc limit 10";
+                      $resultscrollingalaram = mysql_query($scrollingalaram, $link);
+                
+                      ?>
+                 
+                 
+<!--/*scrolling alarams*/-->
+               <div class="col-lg-12">
                 <div class="allarm-events">
                   <ul>
-                    <li>
-                      <div > <strong>Allarm Events</strong> </div>
-                    </li>
+                   
                     <li>
                       <marquee scrollamount="10" scrolldelay="2" direction="left" behavior="scroll" onMouseOver="this.stop()" onMouseOut="this.start();">
-                      Allarm Events Screoll Here.....
+                     <?php
+                          while($scrolingalaramval = mysql_fetch_assoc($resultscrollingalaram))
+                            {
+                          ?>
+                         
+<!--                          Allarm Events Screoll Here.....-->
+                        <b> AsseetId : </b>  <?php echo $scrolingalaramval['asset_id']; ?>
+                        <b> TIME : </b><?php echo $scrolingalaramval['time']; ?> 
+                        <b>Parameeter </b><?php echo $scrolingalaramval['Alarm_Parameter'];?>
+                        <b> Type : </b><?php echo $scrolingalaramval['Alarm_Type'];?> ----/
+                         
+                        <?php } ?>
                       </marquee>
                     </li>
                   </ul>
                 </div>
-              </div-->
+              </div>
             </div>
           </div>
+            
         </div>
       </div>
 <?php include('popup.php');?>
@@ -185,79 +203,11 @@ html{ overflow-y: hidden; }
             
             ?>
     <div class="tab-content">
-      <h3 class="control-sidebar-heading" style="padding-top: 0px; margin-top: 0px;">Allarm Total =  <?php while($tot = mysql_fetch_array($resulttotal)){ echo $tot['count'];}?></h3>
-      <div class="tab-pane active" id="control-sidebar-settings-tab">
-        <!--div class="allam-total">
-          <ul class="">
-            <li><i class="fa fa-circle text-aqua"></i> <span> Motor Temp</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-            <li><i class="fa fa-circle text-orange"></i> <span> Discharge</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-            <li><i class="fa fa-circle text-purple"></i> <span> Intake Pres</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-            <li><i class="fa fa-circle text-blue"></i> <span> Other</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-          </ul>
-        </div-->
-	<div class="allam-total">
-		 <?php while($individualcount = mysql_fetch_array($resultdischsrgepressure)){?>
-			<ul class="">
-            <li><i class="fa fa-circle text-aqua"></i> <span> <?php  echo $individualcount['Alarm_Parameter']; ?></span> <span class="pull-right-container"> <span class="label label-primary pull-right"><?php  echo $individualcount['count1']; ?></span> </span></li>
-			</ul>
-		<?php } ?>
-	</div>
-        <div class="allarm-notification">
-          <h3 class="control-sidebar-heading">Alarm Notifications</h3>
-          <div class="table-scroll">
-            <div class="box-body table-responsive no-padding">
-              <table class="table_custom">
-		<thead>
-			<tr>
-                    <th>Date/time</th>
-                    <th>value</th>
-                    <th>AssetID/type</th>
-                  </tr>
-		</thead>
-                <tbody>
-                  
-		<?php 
-                      $alaram =  "select * from assets_alarams where user_id = 1 order by id desc limit  10"; 
-                      $resultalaram = mysql_query($alaram, $link);
-        
-			while($alaramval = mysql_fetch_array($resultalaram))
-			{
-				  
-		    ?>
-		<tr>
-                      <td><?php echo $alaramval['time']?></td>
-                    <td><?php echo $alaramval['value']?></td>
-                    <td><?php echo $alaramval['asset_id'] ."/".$alaramval['Alarm_Type']?></td>
-                  </tr>
-                 <?php } ?>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="table-bottom-icons">
-            <ul>
-              <li> <i class="fa fa-dot-circle-o"></i></li>
-              <li> <i class="fa fa-star-o"></i></li>
-              <li> <i class="fa fa-ban"></i></li>
-            </ul>
-          </div>
+     
         </div>
         <div class="clearfix"></div>
 	  
-        <div class="">
-          <h3 class="control-sidebar-heading">Alarm Status</h3>
-          <div class="allam-status">
-            <ul class="">
-              <li><i class="fa fa-circle text-red"></i> <span> Failed </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-              <li><i class="fa fa-circle text-yellow"></i> <span> Stopped </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-              <li><i class="fa fa-circle text-green"></i> <span> Running</span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-              <li><i class="fa fa-circle text-red"></i> <span> Failed &lt; TRL </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-              <li><i class="fa fa-circle text-orange"></i> <span> WO Opt </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-              <li><i class="fa fa-circle text-lime"></i> <span> WO Installation </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-              <li><i class="fa fa-circle text-aqua"></i> <span> WO Pull </span> <span class="pull-right-container"> <span class="label label-primary pull-right">30</span> </span></li>
-            </ul>
-          </div>
-        </div>
+        
 	
 	
 
@@ -341,6 +291,7 @@ $("#submit_company").click(function(){
 <script src="bower_components/jquery-knob/js/jquery.knob.js"></script> 
 <script>
     
+
 $("#submit_field").click(function(){
 	
 /*	var myArray = [];
@@ -364,6 +315,7 @@ var cheValues =$(':Checkbox:checked').map(function() {return this.value;}).get()
                 var asset_id = [];
 		var asset_name = [];
 		//alert(response);// return false;  
+		$("#checkDiv").append("<li><div class='check-selectall'> <input id='checkbox' type='checkbox' disabled checked ='checked'/> <label for='checkbox'> Select All </label></div></li>	"); 
 		$("#asset_res").html(response);
 		$.each($('#mapForm').serializeArray(), function(index, value){
                     //alert($('[name="' + value.name + '"]').attr('lat') + $('[name="' + value.name + '"]').attr('long'));
@@ -476,7 +428,7 @@ function BindMarker(asset_id,asset_loc_lat,asset_loc_long,asset_name) {
 var bounds = new google.maps.LatLngBounds();
 locations = [];
 	for(ass_id = 0;ass_id < asset_id.length;ass_id++){
-		locations.push([asset_name[ass_id], 'undefined', 'Latitude:'+ asset_loc_lat[ass_id], 'Longitude' + asset_loc_long[ass_id],
+		locations.push([asset_name[ass_id], 'undefined', 'Latitude:'+ asset_loc_lat[ass_id], 'Longitude:' + asset_loc_long[ass_id],
 	'undefined', asset_loc_lat[ass_id], asset_loc_long[ass_id], 'images/marker-icon-green.png',asset_id[ass_id]]);
 
 	}
@@ -598,5 +550,18 @@ $("#logout").click(function(){
 	window.location.href = "logout.php";
 });
 </script>
+
+<script> /*for alram functionality */
+    $(function(){
+      function loadNum()
+      { 
+        $('.tab-content').load('autoalarams.php');
+        setTimeout(loadNum, 30000); // makes it reload every 10 sec
+      }
+      loadNum(); // start the process...
+    });
+     /*for alram functionality */
+ </script>
+
 </body>
 </html>

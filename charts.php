@@ -71,7 +71,7 @@ include './db_check.php';
         <button type="submit" name="search" id="search-btn" class="btn btn-flat"> <i class="fa fa-search"></i> </button>
         </span> </div>
     </form>
-	<form id="mapForm">
+	<!--<form id="mapForm">
 	<div class="asset-list"   id="asset_res">
 		
 	</div>
@@ -82,7 +82,7 @@ include './db_check.php';
 		    <li> <i class="fa fa-ban"></i></li>
 		  </ul>
 		</div>
-	</form>
+	</form>-->
     <!--ul class="sidebar-menu" data-widget="tree">
       <li><a href="#"><i class="fa fa-book"></i> <span>LABELS</span></a></li>
       <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Asset 1</span></a></li>
@@ -128,15 +128,16 @@ $fetresulttotala = mysql_fetch_array($resulttotala);
     <div class="row">
       <div class="col-lg-12">
         <div class="test col-md-9">
-          <div class="box">
+         <!-- <div class="box">
 <div id="map"></div>
-		<!--<div class="panel-body">
+		<div class="panel-body">
 			
 			<input type="button" id="showmap" value="Back">
-		    </div>-->
+		    </div>
 	 <div id ="mygraph"></div>
-           </div>
+           </div>-->
 	 <div class="box">
+	<div id ="mygraph"></div>
            <div class="box-body"></div>
             <div id="container" style="min-width: 100%; height:250px; margin: 0 auto"></div>
             <div class="graphchat">
@@ -573,6 +574,13 @@ $(".knob").knob({
  $('.thermometer-noconfig').thermometer();
 	
 </script> 
+<script>
+ $(function() {
+      $('.table-scroll').slimscroll({
+      height: '151px'
+      });
+});
+</script>
 <script> /*for alram functionality */
     $(function(){
 	var asset_id = '<?php echo $_GET["asset_id"] ?>';

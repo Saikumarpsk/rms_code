@@ -1,3 +1,12 @@
+
+<script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script> 
+<script>
+ $(function() {
+      $('.table-scroll').slimscroll({
+      height: '151px'
+      });
+});
+</script>
 <?php
 
  include './db_connect.php';
@@ -125,3 +134,4 @@
         </div>
       </div>
     </div>
+

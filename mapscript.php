@@ -12,6 +12,10 @@ window.location.href = "blankPageLayOut.php";
 function comcheck(asset_id){
 //alert("cls-active"+ " " +asset_id);
 //$("cls-active"+asset_id).addClass("active");
+$('#cls-active'+asset_id).click(function() {
+        $(".active").removeClass('active');
+        $(this).addClass('active');
+   });
 $.getJSON("linegraph.php", { id: asset_id }, function(json) {
                var chart;
                  $(document).ready(function(){
